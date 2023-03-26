@@ -3,26 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="40dp"
-    app:cardElevation="3dp"
-    android:layout_marginTop="12dp"
+    app:cardCornerRadius="@dimen/_31sdp"
+    app:cardElevation="@dimen/_2sdp"
+    android:layout_marginTop="@dimen/_9sdp"
     android:layout_marginBottom="0dp"
-    android:layout_marginHorizontal="20dp"
-
-
+    android:layout_marginHorizontal="@dimen/_15sdp"
     >
 
     <RelativeLayout
         android:id="@+id/layoutID"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:padding="5dp"
+        android:layout_height="@dimen/_54sdp"
+        android:padding="@dimen/_4sdp"
         android:background="@color/event_blue1">
 
         <ImageView
             android:id="@+id/imageID"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
             android:src="@drawable/baseline_android_24"
             android:layout_centerVertical="true"
             />
@@ -33,28 +31,53 @@
         android:id="@+id/eventNameID"
         android:layout_alignTop="@id/imageID"
         android:text="Title"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_toRightOf="@id/imageID"
         android:layout_toEndOf="@id/imageID"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/eventTimeID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/imageID"
-            android:text="Description"
-            android:textSize="13sp"
+            android:text="Date + Time"
+            android:textSize="12sp"
             android:textColor="@color/white"
-
             android:layout_toEndOf="@id/imageID"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_below="@id/eventNameID"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
 
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/evenTempID"
+            android:text="temperature"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:layout_alignBottom="@id/imageID"
+            android:layout_below="@id/eventTimeID"
+            android:layout_toEndOf="@id/imageID"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"/>
+
+
+        <ImageView
+            android:id="@+id/deletebtn"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/closebtn"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:src="@drawable/baseline_delete_24" />
+
+
 
 
 

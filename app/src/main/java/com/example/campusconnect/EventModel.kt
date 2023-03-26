@@ -10,4 +10,5 @@ data class EventModel(
     var eventDescription: String? = null,
     var eventFlyer: String? = null,
     var eventIcon: String? = null,
-    var eventId: String? = null)
+    var eventId: String? = null,
+    var eventTemp:String? = null)

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <item android:state_enabled="true">
+    <item android:state_enabled="true"
+        >
         <shape>
             <corners android:radius="@dimen/_39sdp"/>
 
             <gradient
+
                 android:startColor="@color/event_blue3"
                 android:endColor="@color/event_blue3"
                 android:type="linear">
@@ -14,20 +15,18 @@
         </shape>
 
     </item>
-    <item android:state_enabled="false">
+    <item android:state_enabled="false"
+        >
         <shape>
             <corners android:radius="@dimen/_39sdp"/>
 
             <gradient
-                android:startColor="@color/event_blue2"
-                android:endColor="@color/event_blue2"
+                android:startColor="@color/sheets_md_green_A700"
+                android:endColor="@color/sheets_md_green_A700"
                 android:type="linear">
             </gradient>
         </shape>
 
     </item>
-
-
-
 
 </selector>

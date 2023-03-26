@@ -1,10 +1,12 @@
 package com.example.campusconnect
 
+import android.content.Intent
 import android.os.Bundle
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,13 +39,14 @@ class MyEvents : Fragment() {
         eventlist.clear()
 
         eventRecyclerView = binding.myEventsScroll
-        adapter = EventModelAdapter(requireContext(),eventlist)
+        adapter = EventModelAdapter(requireContext(),eventlist,true)
 
         eventRecyclerView.layoutManager= LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
 
         getEventData()
+
 
         return binding.root
     }
@@ -79,7 +82,7 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(requireContext(),eventlist)
+                        adapter=EventModelAdapter(requireContext(),eventlist,true)
                         eventRecyclerView.adapter=adapter
                         eventRecyclerView.adapter?.notifyDataSetChanged()
                         break
@@ -94,7 +97,7 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(requireContext(),eventlist)
+                        adapter=EventModelAdapter(requireContext(),eventlist,true)
                         eventRecyclerView.adapter=adapter
                         eventRecyclerView.adapter?.notifyDataSetChanged()
                         break
@@ -113,6 +116,8 @@ class MyEvents : Fragment() {
         })
 
     }
+
+
 
 
 }

@@ -7,14 +7,14 @@
     tools:context=".EventInfo"
     android:background="@color/background_blue"
     android:id="@+id/eventInfoPopUp"
-    android:paddingHorizontal="10dp"
-    android:paddingVertical="10dp">
+    android:paddingHorizontal="@dimen/_8sdp"
+    android:paddingVertical="@dimen/_8sdp">
 
 
     <ImageView
         android:id="@+id/eventLogoInfoID"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
         android:src="@drawable/baseline_android_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,8 +22,8 @@
     <TextView
         android:id="@+id/eventNameInfoID"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="3dp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="@dimen/_2sdp"
         android:text="Name"
         android:textSize="26sp"
         app:layout_constraintStart_toEndOf="@+id/eventLogoInfoID"
@@ -34,8 +34,8 @@
         app:layout_constraintEnd_toStartOf="@id/closebtn"/>
     <ImageView
         android:id="@+id/closebtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/_31sdp"
+        android:layout_height="@dimen/_31sdp"
         android:src="@drawable/baseline_close_24"
         android:background="@drawable/closebtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,11 +44,11 @@
         />
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="398dp"
-        android:layout_height="665dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="@dimen/_306sdp"
+        android:layout_height="@dimen/_511sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:fillViewport="true"
-        android:paddingHorizontal="5dp"
+        android:paddingHorizontal="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
                 android:id="@+id/eventDescriptionInfoID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="@dimen/_11sdp"
                 android:text="Description"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -88,8 +88,8 @@
 
                 <ImageView
                     android:id="@+id/dateIcon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:background="@drawable/baseline_calendar_today_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventDescriptionInfoID" />
@@ -110,8 +110,8 @@
 
                 <ImageView
                     android:id="@+id/timeIcon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:background="@drawable/baseline_access_time_24"
 
                     />
@@ -128,13 +128,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/locationIcon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:background="@drawable/baseline_location_on_24"
 
                     />
@@ -153,12 +153,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:background="@drawable/buttonshape"
+                android:background="@drawable/registeredbtnshape"
                 android:text="add reminder"
-                android:drawableStart="@drawable/baseline_notifications_active_24"
+                android:drawableStart="@drawable/registered_btn_icon"
                 android:layout_gravity="center"
-                android:paddingHorizontal="13dp"
-                android:layout_marginBottom="50dp"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_38sdp"
 
                 />
 
