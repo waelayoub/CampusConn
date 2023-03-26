@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/eventLogoInfoID"
-        android:layout_width="@dimen/_38sdp"
-        android:layout_height="@dimen/_38sdp"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
         android:src="@drawable/baseline_android_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,10 +22,10 @@
     <TextView
         android:id="@+id/eventNameInfoID"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_38sdp"
+        android:layout_height="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_2sdp"
         android:text="Name"
-        android:textSize="26sp"
+        android:textSize="@dimen/_20sdp"
         app:layout_constraintStart_toEndOf="@+id/eventLogoInfoID"
         app:layout_constraintTop_toTopOf="parent"
         app:flow_horizontalAlign="center"
@@ -34,8 +34,8 @@
         app:layout_constraintEnd_toStartOf="@id/closebtn"/>
     <ImageView
         android:id="@+id/closebtn"
-        android:layout_width="@dimen/_31sdp"
-        android:layout_height="@dimen/_31sdp"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
         android:src="@drawable/baseline_close_24"
         android:background="@drawable/closebtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,8 @@
                 android:layout_marginBottom="@dimen/_11sdp"
                 android:text="Description"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginHorizontal="@dimen/_2sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eventFlyerInfoID" />
@@ -84,7 +85,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                >
 
                 <ImageView
                     android:id="@+id/dateIcon"
@@ -106,7 +109,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_2sdp">
 
                 <ImageView
                     android:id="@+id/timeIcon"
@@ -129,6 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_2sdp"
                 android:orientation="horizontal">
 
                 <ImageView
