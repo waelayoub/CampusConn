@@ -13,16 +13,21 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import org.w3c.dom.Text
 
 
-class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel>):
+class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel>,val specifier:Boolean):
     RecyclerView.Adapter<EventModelAdapter.MyViewHolder>(){
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val eventName:TextView=itemView.findViewById(R.id.eventNameID)
         val eventTime:TextView=itemView.findViewById(R.id.eventTimeID)
         val eventImg:ImageView=itemView.findViewById(R.id.imageID)
+        val eventTemp:TextView=itemView.findViewById(R.id.evenTempID)
+        val deleteBTN:ImageView=itemView.findViewById(R.id.deletebtn)
 
     }
 
@@ -38,9 +43,18 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        if (specifier==true){
+            holder.eventTemp.text="18°C"
+            holder.deleteBTN.visibility=View.VISIBLE
+        }
+        else{
+            holder.eventTemp.visibility=View.INVISIBLE
+            holder.deleteBTN.visibility=View.INVISIBLE
+        }
+
         val currentitem=eventlist[position]
         holder.eventName.text=currentitem.eventName
-        holder.eventTime.text=currentitem.eventTime
+        holder.eventTime.text=currentitem.eventDate.toString() +" "+currentitem.eventTime.toString()
         holder.itemView.setOnClickListener{
 
             val activity=it!!.context as AppCompatActivity
@@ -61,6 +75,12 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
             }
 
         }
+        holder.deleteBTN.setOnClickListener{
+            val auth = Firebase.auth
+            val dbRefReg = FirebaseDatabase.getInstance().getReference("registrations").child(currentitem.eventId!!).child(auth.currentUser!!.uid)
+            dbRefReg.removeValue()
+        }
+
 
 
         Glide.with(context).load(currentitem.eventIcon).into(holder.eventImg)

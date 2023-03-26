@@ -86,7 +86,7 @@ class Home : Fragment() {
         eventlist.clear()
 
         eventRecyclerView = binding.eventlist
-        adapter = EventModelAdapter(requireContext(),eventlist)
+        adapter = EventModelAdapter(requireContext(),eventlist,false)
 
         eventRecyclerView.layoutManager=LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)

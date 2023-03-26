@@ -43,7 +43,7 @@ class EventInfo(private val eventName: String,
             if(it.child(auth.currentUser!!.uid).exists()){
                 binding.registerButton.text="Registered"
                 binding.registerButton.isEnabled=false
-                // Here to add all modifications if event is registered (@Ralph)
+
             }
         }
         binding.eventNameInfoID.setText(eventName)
@@ -78,7 +78,7 @@ class EventInfo(private val eventName: String,
                     println("Success")
                     binding.registerButton.text="Registered"
                     binding.registerButton.isEnabled=false
-                    // (@Ralph) change also ui for button if newly registered
+
                 }
                 .addOnFailureListener {
                     println("Fail")

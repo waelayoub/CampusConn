@@ -34,7 +34,7 @@
 
                 <data
                     android:host="com.example.campusconnect"
-                    android:path="/8qBoATJB6ptq+nIkAL5T9RSY1O0="
+                    android:path="/Zxu1WdLB7CGtJH8nMS+rdpkdU3s="
                     android:scheme="msauth" />
             </intent-filter>
             </activity>

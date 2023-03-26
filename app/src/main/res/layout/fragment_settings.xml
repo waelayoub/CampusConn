@@ -13,7 +13,7 @@
         android:id="@+id/SignOutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="@dimen/_71sdp"
         android:text="Sign Out"
         android:background="@drawable/buttonshape"
         app:layout_constraintBottom_toBottomOf="parent"
