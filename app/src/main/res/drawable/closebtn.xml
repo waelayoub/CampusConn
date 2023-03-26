@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="400dp"/>
+            <solid android:color="@color/calendar_blue"></solid>
+        </shape>
+        <animation-list android:oneshot="true"></animation-list>
+
+    </item>
+    <item android:drawable="@drawable/baseline_close_24"
+        android:state_checkable="true">
+
+    </item>
+</selector>

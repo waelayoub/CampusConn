@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:id="@+id/MainPage"
+        android:icon="@drawable/baseline_calendar_month_24"/>
+    <item android:title="My Events"
+        android:id="@+id/MyEventsPage"
+        android:icon="@drawable/baseline_edit_calendar_24"/>
+    <item android:title="Settings"
+        android:id="@+id/SettingsPage"
+        android:icon="@drawable/baseline_settings_24"/>
+</menu>
