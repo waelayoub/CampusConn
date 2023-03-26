@@ -28,6 +28,7 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        eventlist.sortBy { it.eventDate+" "+it.eventTime }
         val itemView=LayoutInflater.from(parent.context).inflate(R.layout.events_cardview,parent,false)
         return MyViewHolder(itemView)
     }
