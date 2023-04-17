@@ -41,6 +41,9 @@ class MyEvents : Fragment() {
         eventRecyclerView = binding.myEventsScroll
         adapter = EventModelAdapter(requireContext(),eventlist,true)
 
+        if(eventlist.size==0){
+            adapter.isShimmer=false
+        }
         eventRecyclerView.layoutManager= LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
@@ -74,10 +77,13 @@ class MyEvents : Fragment() {
                         // Handle any errors that occur
                     }
                 }
+                adapter.isShimmer=false
+
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 println("I am in child changed")
+
                 val removedKey = snapshot.key
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
@@ -89,6 +95,7 @@ class MyEvents : Fragment() {
                     }
                 }
 
+                adapter.isShimmer=false
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -103,6 +110,7 @@ class MyEvents : Fragment() {
                         break
                     }
                 }
+                adapter.isShimmer=false
 
             }
 

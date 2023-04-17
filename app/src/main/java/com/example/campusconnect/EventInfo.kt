@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import java.text.SimpleDateFormat
 
@@ -84,9 +85,18 @@ class EventInfo(private val eventName: String,
                     println("Fail")
                 }
 
+            println(eventId)
+            FirebaseMessaging.getInstance().subscribeToTopic(eventId)
+                .addOnCompleteListener { task ->
+                    var msg = "Done"
+                    if (!task.isSuccessful) {
+                        msg = "Failed"
+                    }
 
-            println("The current user is: "+auth.currentUser!!.uid)
-            println("The current event is : "+eventId)
+                    println(msg)
+                }
+            //println("The current user is: "+auth.currentUser!!.uid)
+            //println("The current event is : "+eventId)
         }
 
         return binding.root

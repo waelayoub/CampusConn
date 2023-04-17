@@ -1,5 +1,6 @@
 package com.example.campusconnect
 
+import android.content.Context
 import android.content.Intent
 
 import android.os.Bundle
@@ -20,6 +21,7 @@ import java.util.concurrent.CompletableFuture
 
 
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -49,6 +51,12 @@ class Splash_Screen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        val isDarkModeEnabled = sharedPreferences.getBoolean("is_dark_mode_enabled", false)
+        val mode = if (isDarkModeEnabled) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(mode)
+
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
