@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.campusconnect.databinding.FragmentSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ import kotlinx.coroutines.launch
 class Settings : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
+    private val auth: FirebaseAuth = Firebase.auth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +51,13 @@ class Settings : Fragment() {
             updateTheme(isChecked)
 
         }
+
+        binding.tvUserName.text=auth.currentUser!!.displayName
+        binding.tvUserMail.text =auth.currentUser!!.email
+
+
+        println("I am in Settings the user name is: "+auth.currentUser!!.displayName )
+        println("I am in Settings the email is: "+ auth.currentUser!!.email )
 
         binding.SignOutButton.setOnClickListener {
             val auth = FirebaseAuth.getInstance()
