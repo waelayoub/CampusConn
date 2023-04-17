@@ -18,9 +18,10 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 import org.w3c.dom.Text
-
+import java.text.SimpleDateFormat
 
 
 class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel>,val specifier:Boolean):
@@ -40,7 +41,7 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        eventlist.sortBy { it.eventDate+" "+it.eventTime }
+        eventlist.sortBy { SimpleDateFormat("dd/MM/yyyy HH:mm").parse(it.eventDate+" "+it.eventTime).time}
 
         val itemView=LayoutInflater.from(parent.context).inflate(R.layout.events_cardview,parent,false)
 
@@ -112,6 +113,17 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
                 val dbRefReg = FirebaseDatabase.getInstance().getReference("registrations")
                     .child(currentitem.eventId!!).child(auth.currentUser!!.uid)
                 dbRefReg.removeValue()
+
+
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(currentitem.eventId!!)
+                    .addOnCompleteListener { task ->
+                    var msg = "Done"
+                    if (!task.isSuccessful) {
+                        msg = "Failed"
+                    }
+
+                    println(msg)
+                }
             }
             Glide.with(context).load(currentitem.eventIcon).into(holder.eventImg)
 

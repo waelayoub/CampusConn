@@ -3,8 +3,10 @@ package com.example.campusconnect
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +31,6 @@ class Settings : Fragment() {
 
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         val isSystemInDarkMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES
-
         val sharedPreferences = requireActivity().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
         val isDarkModeEnabled = sharedPreferences.getBoolean("is_dark_mode_enabled", isSystemInDarkMode)
 
@@ -65,7 +66,8 @@ class Settings : Fragment() {
     private fun updateTheme(isDarkModeEnabled: Boolean) {
         println("im in updatetheme")
         // Save the user's preference for theme mode in shared preferences
-        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
         sharedPreferences.edit().putBoolean("is_dark_mode_enabled", isDarkModeEnabled).apply()
 
         // Set the app theme based on the saved preference
@@ -75,20 +77,10 @@ class Settings : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        val prefs = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val currentFragmentTag ="SETTINGS"
+        theme_object.themebool=true
 
-        println("current frag tag: "+currentFragmentTag)
-
-        prefs.edit().putString("currentFragmentTag", currentFragmentTag).apply()
-        // Recreate the current activity to apply the new theme
-        requireActivity().recreate()
 
     }
-
-
-
-
 
 
 

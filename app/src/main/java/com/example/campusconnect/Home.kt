@@ -35,7 +35,7 @@ class Home : Fragment() {
 
         dbref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                println("im in added")
+
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
                 eventlist.add(event!!)
@@ -49,7 +49,7 @@ class Home : Fragment() {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                println("I am in CHanged")
+
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
 
@@ -57,8 +57,9 @@ class Home : Fragment() {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist[i] = event
 
+                        adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
-                        adapter.notifyItemChanged(i)
+                        eventRecyclerView.adapter=adapter
 
                         break
                     }
@@ -72,8 +73,9 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist.removeAt(i)
+                        adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
-                        adapter.notifyItemRemoved(i)
+                        eventRecyclerView.adapter=adapter
                         break
                     }
                 }

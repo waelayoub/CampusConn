@@ -85,8 +85,8 @@
 
         <ImageView
             android:id="@+id/deletebtn"
-            android:layout_width="@dimen/_23sdp"
-            android:layout_height="@dimen/_23sdp"
+            android:layout_width="@dimen/_33sdp"
+            android:layout_height="@dimen/_33sdp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginHorizontal="@dimen/_8sdp"

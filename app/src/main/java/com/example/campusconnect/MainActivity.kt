@@ -29,21 +29,14 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_CampusConnect)
         setContentView(binding.root)
 
-        //
+        if (theme_object.themebool){
 
-        // Restore the current fragment tag from shared preferences
-        val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val currentFragmentTag = prefs.getString("currentFragmentTag", "")
-        // Navigate to the corresponding fragment
-        if (!currentFragmentTag.isNullOrEmpty()) {
             replaceFragment(settingsFragment)
-            prefs.edit().putString("currentFragmentTag", "").apply()
-        } else {
+            theme_object.themebool=false
+        }else{
             replaceFragment(homeFragment)
         }
 
-
-        //
         //replaceFragment(homeFragment)
 
         val bottomNav=findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -60,12 +53,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
-
             replace(R.id.frame_layout,fragment)
             commit()
         }
 
     }
+
+
 
 
 
