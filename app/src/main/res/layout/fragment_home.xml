@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Home"
-    android:background="@color/background_blue"
+    style="@style/SCREEN"
     android:configChanges="orientation|screenSize"
     android:paddingHorizontal="0dp">
 
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:background="@color/background_blue"
+        style="@style/CALENDAR"
 
         android:dateTextAppearance="@style/CalenderViewDateCustomText"
         android:focusable="false"
@@ -33,7 +33,7 @@
         android:id="@+id/eventlist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/background_blue"
+        style="@style/SCREEN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

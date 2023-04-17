@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".EventInfo"
-    android:background="@color/background_blue"
+    style="@style/SCREEN"
     android:id="@+id/eventInfoPopUp"
     android:paddingHorizontal="@dimen/_8sdp"
     android:paddingVertical="@dimen/_8sdp">
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toEndOf="@+id/eventLogoInfoID"
         app:layout_constraintTop_toTopOf="parent"
         app:flow_horizontalAlign="center"
-        android:textColor="@color/white"
+        style="@style/TEXTVIEWS"
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@id/closebtn"/>
     <ImageView
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_11sdp"
                 android:text="Description"
-                android:textColor="@color/white"
+                style="@style/TEXTVIEWS"
                 android:textSize="@dimen/_15sdp"
                 android:layout_marginHorizontal="@dimen/_2sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,8 @@
                     android:id="@+id/dateIcon"
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
-                    android:background="@drawable/baseline_calendar_today_24"
+
+                    android:src="@drawable/baseline_calendar_today_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventDescriptionInfoID" />
 
@@ -103,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:textColor="@color/white"
+                    style="@style/TEXTVIEWS"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -117,7 +118,7 @@
                     android:id="@+id/timeIcon"
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
-                    android:background="@drawable/baseline_access_time_24"
+                    android:src="@drawable/baseline_access_time_24"
 
                     />
 
@@ -126,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Time"
-                    android:textColor="@color/white"
+                    style="@style/TEXTVIEWS"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -141,7 +142,8 @@
                     android:id="@+id/locationIcon"
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
-                    android:background="@drawable/baseline_location_on_24"
+
+                    android:src="@drawable/baseline_location_on_24"
 
                     />
 
@@ -150,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                      android:text="Location"
-                    android:textColor="@color/white"
+                    style="@style/TEXTVIEWS"
                     android:textSize="15sp" />
             </LinearLayout>
 

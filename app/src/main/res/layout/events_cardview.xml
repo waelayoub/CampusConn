@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:id="@+id/shimmer_view_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content">
+<androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/_31sdp"
     app:cardElevation="@dimen/_2sdp"
     android:layout_marginTop="@dimen/_9sdp"
@@ -13,58 +17,70 @@
     <RelativeLayout
         android:id="@+id/layoutID"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_54sdp"
+        android:layout_height="wrap_content"
         android:padding="@dimen/_4sdp"
-        android:background="@color/event_blue1">
+        style="@style/CARDVIEWS"
+        >
 
         <ImageView
             android:id="@+id/imageID"
             android:layout_width="@dimen/_38sdp"
             android:layout_height="@dimen/_38sdp"
-            android:src="@drawable/baseline_android_24"
+            android:background="@drawable/roundedicon"
+            style="@style/TVinCV"
             android:layout_centerVertical="true"
             />
 
         <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_180sdp"
         android:layout_height="wrap_content"
         android:id="@+id/eventNameID"
+            style="@style/TVinCV"
+            android:background="@drawable/roundedshimmerlabel"
         android:layout_alignTop="@id/imageID"
-        android:text="Title"
+        android:text=""
+
         android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         android:layout_toRightOf="@id/imageID"
         android:layout_toEndOf="@id/imageID"
         android:layout_marginLeft="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_8sdp" />
-
-        <TextView
-            android:id="@+id/eventTimeID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date + Time"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:layout_toEndOf="@id/imageID"
-            android:layout_below="@id/eventNameID"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
 
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/eventTimeID"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:layout_toEndOf="@id/imageID"
+            android:layout_below="@id/eventNameID"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            style="@style/TVinCV"
+            android:background="@drawable/roundedshimmerlabel"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            />
+
+        <TextView
+            android:layout_width="@dimen/_50sdp"
             android:layout_height="wrap_content"
             android:id="@+id/evenTempID"
-            android:text="temperature"
-            android:textColor="@color/white"
+            android:text=""
+
             android:textSize="9sp"
-            android:layout_alignBottom="@id/imageID"
             android:layout_below="@id/eventTimeID"
             android:layout_toEndOf="@id/imageID"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp"/>
+            android:layout_marginStart="@dimen/_8sdp"
+            style="@style/TVinCV"
+            android:background="@drawable/roundedshimmerlabel"
+            android:paddingStart="@dimen/_8sdp"/>
 
 
         <ImageView
@@ -73,8 +89,8 @@
             android:layout_height="@dimen/_23sdp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:background="@drawable/closebtn"
             android:layout_marginHorizontal="@dimen/_8sdp"
+            android:background="@drawable/closebtn"
             android:src="@drawable/baseline_delete_24" />
 
 
@@ -86,3 +102,5 @@
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

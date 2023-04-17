@@ -2,9 +2,79 @@
     <!-- Base application theme. -->
     <style name="Theme.CampusConnect" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/background_blue</item>
+
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/background_blue</item>
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- DARK MODE -->
+    <style name="SCREEN">
+        <item name="android:background">@color/background_blue</item>
+    </style>
+
+    <!--TEXTVIEWS-->
+    <style name="TEXTVIEWS">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--NAVBAR -->
+    <style name="NAVBAR">
+        <item name="android:background">@color/background_blue</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
+
+
+    <!-- CALENDAR -->
+    <style name="CALENDAR">
+        <item name="android:background">@color/background_blue</item>
+    </style>
+    <style name="CustomCalendarMonth" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:weekNumberColor">@color/white</item>
+        <item name="android:headerYearTextAppearance">@color/white</item>
+    </style>
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/background_blue</item>
+    </style>
+
+    <!--CARDVIEWS-->
+    <style name="CARDVIEWS">
+        <item name="android:background">@color/event_blue1</item>
+    </style>
+    <style name="TVinCV">
+        <item name="android:backgroundTint">@color/sheets_md_blue_600</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="ICONS">
+        <item name="itemIconTint">@color/white</item>
+    </style>
+
+    <!--STATUSBAR-->
+    <style name="statusbar">
+        <item name="android:statusBarColor">@color/teal_200</item>
+    </style>
+
+
+    <style name="sunIcon">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="moonIcon">
+        <item name="android:tint">@color/sheets_md_amber_400</item>
+    </style>
+
+
 </resources>

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Splash_Screen"
-    android:background="@color/background_blue">
+    style="@style/SCREEN"
+    >
 
     <ImageView
         android:id="@+id/img_logo"
@@ -20,12 +21,13 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TEXTVIEWS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_139sdp"
         android:text="Stay Informed, Stay Involved"
-        android:textColor="@color/white"
+
         android:textSize="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
 
@@ -36,7 +38,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:textColor="@color/white"
+        style="@style/TEXTVIEWS"
         android:textSize="@dimen/_20sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

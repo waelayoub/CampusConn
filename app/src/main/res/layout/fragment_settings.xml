@@ -5,9 +5,51 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Settings"
-    android:background="@color/background_blue">
+    style="@style/SCREEN">
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/SignOutButton">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            style="@style/sunIcon"
+            android:src="@drawable/baseline_wb_sunny_24"
+            android:layout_marginRight="@dimen/_4sdp">
+
+        </ImageView>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/themeSwitch"
+        style="@style/statusbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:paddingVertical="@dimen/_20sdp"
+        android:checked="@bool/is_dark_mode_enabled"
+        app:layout_constraintBottom_toTopOf="@id/SignOutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/moonIcon"
+            android:src="@drawable/baseline_dark_mode_24"
+            android:layout_gravity="center_vertical">
+
+        </ImageView>
+    </LinearLayout>
+
+
     <androidx.appcompat.widget.AppCompatButton
 
         android:id="@+id/SignOutButton"
@@ -21,15 +63,6 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textColor="@color/white"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

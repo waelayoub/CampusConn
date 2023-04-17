@@ -2,6 +2,7 @@ package com.example.campusconnect
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 
 
@@ -21,31 +22,44 @@ class Home : Fragment() {
     private lateinit var dbref: DatabaseReference
     private lateinit var adapter: EventModelAdapter
     private lateinit var eventRecyclerView: RecyclerView
+    private lateinit var con: Context
 
     private var eventlist= arrayListOf<EventModel>()
 
 
 
     private fun getEventData(){
+
         dbref= FirebaseDatabase.getInstance().getReference("Events")
 
 
         dbref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                println("im in added")
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
                 eventlist.add(event!!)
-                adapter.notifyDataSetChanged()
+
+
+
+                adapter = EventModelAdapter(con,eventlist,false)
+                adapter.isShimmer=false
+                eventRecyclerView.adapter=adapter
+
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                println("I am in CHanged")
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
 
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist[i] = event
+
+                        adapter.isShimmer=false
                         adapter.notifyItemChanged(i)
+
                         break
                     }
                 }
@@ -58,6 +72,7 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist.removeAt(i)
+                        adapter.isShimmer=false
                         adapter.notifyItemRemoved(i)
                         break
                     }
@@ -71,7 +86,10 @@ class Home : Fragment() {
             override fun onCancelled(error: DatabaseError) {
 
             }
+
         })
+
+
     }
 
 
@@ -81,20 +99,25 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding=FragmentHomeBinding.inflate(inflater, container, false)
 
         eventlist.clear()
 
-        eventRecyclerView = binding.eventlist
-        adapter = EventModelAdapter(requireContext(),eventlist,false)
 
+        adapter = EventModelAdapter(requireContext(),eventlist,false)
+        eventRecyclerView = binding.eventlist
         eventRecyclerView.layoutManager=LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
 
+        con=requireContext()
         getEventData()
+
 
         return binding.root
     }
+
+
 
 }
