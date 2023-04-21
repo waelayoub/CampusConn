@@ -63,24 +63,29 @@ class MyEvents : Fragment() {
 
         dbrefReg.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                println("I am in child added")
-                if (snapshot.child(uid).exists()) {
-                    val eventRef = dbrefEvent.child(snapshot.key!!)
-                    eventRef.get().addOnSuccessListener { eventSnapshot ->
-                        if (eventSnapshot.exists()) {
-                            val eventData = eventSnapshot.getValue(EventModel::class.java)
-                            eventData!!.eventId=eventSnapshot.key
-                            println("event id is: "+eventSnapshot.key)
-                            eventlist.add(eventData!!)
-                            adapter=EventModelAdapter(requireContext(),eventlist,true)
-                            eventRecyclerView.adapter=adapter
+                dbrefActive.child(snapshot.key!!).get().addOnSuccessListener {
+                    task ->
+                    if (task.exists()) {
+                        println("I am in child added")
+                        if (snapshot.child(uid).exists()) {
+                            val eventRef = dbrefEvent.child(snapshot.key!!)
+                            eventRef.get().addOnSuccessListener { eventSnapshot ->
+                                if (eventSnapshot.exists()) {
+                                    val eventData = eventSnapshot.getValue(EventModel::class.java)
+                                    eventData!!.eventId = eventSnapshot.key
+                                    println("event id is: " + eventSnapshot.key)
+                                    eventlist.add(eventData!!)
+                                    adapter = EventModelAdapter(requireContext(), eventlist, true)
+                                    eventRecyclerView.adapter = adapter
 
-                            adapter.isShimmer=false
+                                    adapter.isShimmer = false
 
+                                }
+                            }
                         }
                     }
-                }
 
+                }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
