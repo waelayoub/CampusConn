@@ -14,6 +14,7 @@ import com.example.campusconnect.databinding.FragmentMyEventsBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 class MyEvents : Fragment() {
@@ -29,6 +30,9 @@ class MyEvents : Fragment() {
     private val dbrefEvent= FirebaseDatabase.getInstance().getReference("Events")
     private val dbrefActive= FirebaseDatabase.getInstance().getReference("Active")
 
+    private lateinit var searchView:androidx.appcompat.widget.SearchView
+    private var searchList= arrayListOf<EventModel>()
+
 
 
 
@@ -42,15 +46,40 @@ class MyEvents : Fragment() {
 
         eventRecyclerView = binding.myEventsScroll
         adapter = EventModelAdapter(requireContext(),eventlist,true)
+        searchView=binding.Mysearchview
 
-        if(eventlist.size==0){
-            adapter.isShimmer=false
-        }
         eventRecyclerView.layoutManager= LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
 
         getEventData1()
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchList.clear()
+                val searchText=newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()){
+                    eventlist.forEach{
+                        if (it.eventName?.toLowerCase(Locale.getDefault())?.contains(searchText) == true){
+                            searchList.add(it)
+                        }
+                    }
+                    eventRecyclerView.adapter!!.notifyDataSetChanged()
+                }else{
+                    searchList.clear()
+                    searchList.addAll(eventlist)
+                    eventRecyclerView.adapter!!.notifyDataSetChanged()
+                }
+                return false
+            }
+
+
+        })
 
 
         return binding.root
@@ -75,10 +104,13 @@ class MyEvents : Fragment() {
                                     eventData!!.eventId = eventSnapshot.key
                                     println("event id is: " + eventSnapshot.key)
                                     eventlist.add(eventData!!)
-                                    adapter = EventModelAdapter(requireContext(), eventlist, true)
+
+                                    searchList.add(eventData!!)
+                                    adapter = EventModelAdapter(requireContext(), searchList, true)
+                                    adapter.isShimmer = false
                                     eventRecyclerView.adapter = adapter
 
-                                    adapter.isShimmer = false
+
 
                                 }
                             }
@@ -95,13 +127,21 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(requireContext(),eventlist,true)
+                        //adapter=EventModelAdapter(requireContext(),eventlist,true)
+                        //eventRecyclerView.adapter=adapter
+                        //break
+                    }
+                }
+                for ((index, event) in searchList.withIndex()) {
+                    if (event.eventId == removedKey) {
+                        searchList.removeAt(index)
+                        adapter=EventModelAdapter(requireContext(),searchList,true)
                         eventRecyclerView.adapter=adapter
-                        break
+
                     }
                 }
 
-                adapter.isShimmer=false
+                //adapter.isShimmer=false
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -110,12 +150,20 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(requireContext(),eventlist,true)
-                        eventRecyclerView.adapter=adapter
-                        break
+                        //adapter=EventModelAdapter(requireContext(),eventlist,true)
+                        //eventRecyclerView.adapter=adapter
+                        //break
                     }
                 }
-                adapter.isShimmer=false
+                for ((index, event) in searchList.withIndex()) {
+                    if (event.eventId == removedKey) {
+                        searchList.removeAt(index)
+                        adapter=EventModelAdapter(requireContext(),searchList,true)
+                        eventRecyclerView.adapter=adapter
+
+                    }
+                }
+                //adapter.isShimmer=false
 
             }
 
@@ -143,12 +191,20 @@ class MyEvents : Fragment() {
                         for ((index, event) in eventlist.withIndex()) {
                             if (event.eventId == removedKey) {
                                 eventlist.removeAt(index)
-                                adapter=EventModelAdapter(requireContext(),eventlist,true)
-                                eventRecyclerView.adapter=adapter
-                                break
+                                //adapter=EventModelAdapter(requireContext(),eventlist,true)
+                                //eventRecyclerView.adapter=adapter
+                                //break
                             }
                         }
-                        adapter.isShimmer=false
+                        for ((index, event) in searchList.withIndex()) {
+                            if (event.eventId == removedKey) {
+                                searchList.removeAt(index)
+                                adapter=EventModelAdapter(requireContext(),searchList,true)
+                                eventRecyclerView.adapter=adapter
+
+                            }
+                        }
+                        //adapter.isShimmer=false
                     }
 
                     override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {

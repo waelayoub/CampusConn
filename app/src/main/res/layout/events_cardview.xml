@@ -8,10 +8,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_31sdp"
-    app:cardElevation="@dimen/_2sdp"
-    android:layout_marginTop="@dimen/_9sdp"
-    android:layout_marginBottom="0dp"
+    android:layout_marginTop="@dimen/_4sdp"
+
+    app:cardElevation="@dimen/_3sdp"
+    app:cardPreventCornerOverlap="true"
     android:layout_marginHorizontal="@dimen/_15sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
+
+
     >
 
     <RelativeLayout

@@ -2,4 +2,13 @@
     <string name="app_name">CampusConnect</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="event_types">
+        <item>All</item>
+        <item>Job Fair</item>
+        <item>Sport</item>
+        <item>Entertainment</item>
+        <item>Educational</item>
+        <item>Other</item>
+    </string-array>
 </resources>

@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
+import java.util.*
 
 
 class Home : Fragment() {
@@ -24,8 +26,12 @@ class Home : Fragment() {
     private lateinit var adapter: EventModelAdapter
     private lateinit var eventRecyclerView: RecyclerView
     private lateinit var con: Context
-
     private var eventlist= arrayListOf<EventModel>()
+
+
+    private lateinit var searchView:androidx.appcompat.widget.SearchView
+    private var searchList= arrayListOf<EventModel>()
+
 
 
 
@@ -46,14 +52,12 @@ class Home : Fragment() {
                         event!!.eventId = eventSnapshot.key
                         eventlist.add(event!!)
 
-                        adapter = EventModelAdapter(con,eventlist,false)
+                        searchList.add(event!!)
+                        adapter = EventModelAdapter(con,searchList,false)
                         adapter.isShimmer=false
                         eventRecyclerView.adapter=adapter
                     }
                 }
-
-
-
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -65,10 +69,21 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event) {
                         eventlist.removeAt(i)
-                        adapter = EventModelAdapter(con,eventlist,false)
+
+                        //adapter = EventModelAdapter(con,searchList,false)
+                        //adapter.isShimmer=false
+                        //eventRecyclerView.adapter=adapter
+                        //break
+                    }
+                }
+                for (i in searchList.indices) {
+                    if (searchList[i].eventId == event) {
+
+                        searchList.removeAt(i)
+                        adapter = EventModelAdapter(con,searchList,false)
                         adapter.isShimmer=false
                         eventRecyclerView.adapter=adapter
-                        break
+
                     }
                 }
             }
@@ -95,14 +110,23 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist[i] = event
+                        //adapter = EventModelAdapter(con,eventlist,false)
+                        //adapter.isShimmer=false
+                        //eventRecyclerView.adapter=adapter
 
-                        adapter = EventModelAdapter(con,eventlist,false)
-                        adapter.isShimmer=false
-                        eventRecyclerView.adapter=adapter
-
-                        break
+                        //break
                     }
                 }
+                    for (i in searchList.indices) {
+                        if (searchList[i].eventId == event.eventId) {
+
+                            searchList[i]=event
+                            adapter = EventModelAdapter(con,searchList,false)
+                            adapter.isShimmer=false
+                            eventRecyclerView.adapter=adapter
+
+                        }
+                    }
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -112,10 +136,18 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist.removeAt(i)
-                        adapter = EventModelAdapter(con,eventlist,false)
+                        //adapter = EventModelAdapter(con,eventlist,false)
+                        //adapter.isShimmer=false
+                        //eventRecyclerView.adapter=adapter
+                        //break
+                    }
+                }
+                for(i in searchList.indices){
+                    if (searchList[i].eventId==event.eventId){
+                        searchList.removeAt(i)
+                        adapter = EventModelAdapter(con,searchList,false)
                         adapter.isShimmer=false
                         eventRecyclerView.adapter=adapter
-                        break
                     }
                 }
             }
@@ -148,6 +180,9 @@ class Home : Fragment() {
 
         adapter = EventModelAdapter(requireContext(),eventlist,false)
         eventRecyclerView = binding.eventlist
+
+        searchView=binding.searchview
+
         eventRecyclerView.layoutManager=LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
@@ -155,6 +190,33 @@ class Home : Fragment() {
         con=requireContext()
         getEventData()
 
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchList.clear()
+                val searchText=newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()){
+                    eventlist.forEach{
+                       if (it.eventName?.toLowerCase(Locale.getDefault())?.contains(searchText) == true){
+                            searchList.add(it)
+                       }
+                    }
+                    eventRecyclerView.adapter!!.notifyDataSetChanged()
+                }else{
+                    searchList.clear()
+                    searchList.addAll(eventlist)
+                    eventRecyclerView.adapter!!.notifyDataSetChanged()
+                }
+                return false
+            }
+
+
+        })
 
         return binding.root
     }

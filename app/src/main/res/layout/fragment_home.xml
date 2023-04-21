@@ -11,13 +11,27 @@
     android:paddingHorizontal="0dp">
 
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:background="@drawable/searchview_bg"
+        android:theme="@style/ThemeOverlay.SearchView"
+        app:closeIcon="@drawable/searchbar_close_24"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@color/transparent"
+        app:queryHint="Search for events..."
+        app:searchIcon="@drawable/baseline_search_24" />
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         style="@style/CALENDAR"
-
         android:dateTextAppearance="@style/CalenderViewDateCustomText"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -25,9 +39,11 @@
         android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchview"
+
 
         />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventlist"
