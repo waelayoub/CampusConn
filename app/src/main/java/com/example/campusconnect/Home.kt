@@ -20,6 +20,7 @@ import com.google.firebase.database.*
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var dbref: DatabaseReference
+    private lateinit var dbrefEvent:DatabaseReference
     private lateinit var adapter: EventModelAdapter
     private lateinit var eventRecyclerView: RecyclerView
     private lateinit var con: Context
@@ -30,22 +31,60 @@ class Home : Fragment() {
 
     private fun getEventData(){
 
-        dbref= FirebaseDatabase.getInstance().getReference("Events")
+        dbref= FirebaseDatabase.getInstance().getReference("Active")
+        dbrefEvent= FirebaseDatabase.getInstance().getReference("Events")
 
 
         dbref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
 
-                val event = snapshot.getValue(EventModel::class.java)
-                event!!.eventId = snapshot.key
-                eventlist.add(event!!)
+                val eventRef = dbrefEvent.child(snapshot.key!!)
+                eventRef.get().addOnSuccessListener {
+                    eventSnapshot ->
+                    if (eventSnapshot.exists()){
+                        val event = eventSnapshot.getValue(EventModel::class.java)
+                        event!!.eventId = eventSnapshot.key
+                        eventlist.add(event!!)
+
+                        adapter = EventModelAdapter(con,eventlist,false)
+                        adapter.isShimmer=false
+                        eventRecyclerView.adapter=adapter
+                    }
+                }
 
 
 
-                adapter = EventModelAdapter(con,eventlist,false)
-                adapter.isShimmer=false
-                eventRecyclerView.adapter=adapter
+            }
 
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val event = snapshot.key
+
+                for (i in eventlist.indices) {
+                    if (eventlist[i].eventId == event) {
+                        eventlist.removeAt(i)
+                        adapter = EventModelAdapter(con,eventlist,false)
+                        adapter.isShimmer=false
+                        eventRecyclerView.adapter=adapter
+                        break
+                    }
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+        dbrefEvent.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
