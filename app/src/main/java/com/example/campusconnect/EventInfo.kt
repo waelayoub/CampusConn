@@ -94,6 +94,8 @@ class EventInfo(private val eventName: String,
                     }
 
                     println(msg)
+                }.addOnFailureListener{
+                    println("Action Failed")
                 }
             //println("The current user is: "+auth.currentUser!!.uid)
             //println("The current event is : "+eventId)
