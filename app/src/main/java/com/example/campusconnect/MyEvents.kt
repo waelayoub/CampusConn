@@ -1,5 +1,6 @@
 package com.example.campusconnect
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 
@@ -29,6 +30,7 @@ class MyEvents : Fragment() {
     private val dbrefEvent= FirebaseDatabase.getInstance().getReference("Events")
     private val dbrefActive= FirebaseDatabase.getInstance().getReference("Active")
 
+    private lateinit var con:Context
 
 
 
@@ -38,6 +40,8 @@ class MyEvents : Fragment() {
     ): View? {
         binding=FragmentMyEventsBinding.inflate(inflater, container, false)
 
+        con= requireContext()
+
         eventlist.clear()
 
         eventRecyclerView = binding.myEventsScroll
@@ -46,7 +50,7 @@ class MyEvents : Fragment() {
         if(eventlist.size==0){
             adapter.isShimmer=false
         }
-        eventRecyclerView.layoutManager= LinearLayoutManager(context)
+        eventRecyclerView.layoutManager= LinearLayoutManager(con)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
 
@@ -75,7 +79,7 @@ class MyEvents : Fragment() {
                                     eventData!!.eventId = eventSnapshot.key
                                     println("event id is: " + eventSnapshot.key)
                                     eventlist.add(eventData!!)
-                                    adapter = EventModelAdapter(requireContext(), eventlist, true)
+                                    adapter = EventModelAdapter(con, eventlist, true)
                                     eventRecyclerView.adapter = adapter
 
                                     adapter.isShimmer = false
@@ -95,7 +99,7 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(requireContext(),eventlist,true)
+                        adapter=EventModelAdapter(con,eventlist,true)
                         eventRecyclerView.adapter=adapter
                         break
                     }
@@ -110,7 +114,7 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(requireContext(),eventlist,true)
+                        adapter=EventModelAdapter(con,eventlist,true)
                         eventRecyclerView.adapter=adapter
                         break
                     }
@@ -143,7 +147,7 @@ class MyEvents : Fragment() {
                         for ((index, event) in eventlist.withIndex()) {
                             if (event.eventId == removedKey) {
                                 eventlist.removeAt(index)
-                                adapter=EventModelAdapter(requireContext(),eventlist,true)
+                                adapter=EventModelAdapter(con,eventlist,true)
                                 eventRecyclerView.adapter=adapter
                                 break
                             }
