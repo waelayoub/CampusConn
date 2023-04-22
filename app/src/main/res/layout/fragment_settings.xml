@@ -7,7 +7,7 @@
     tools:context=".Settings"
     style="@style/SCREEN">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,8 @@
             android:layout_gravity="center_vertical"
             style="@style/sunIcon"
             android:src="@drawable/baseline_wb_sunny_24"
-            android:layout_marginRight="@dimen/_4sdp">
+            android:layout_marginEnd="@dimen/_4sdp"
+           >
 
         </ImageView>
 
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"
             style="@style/moonIcon"
             android:src="@drawable/baseline_dark_mode_24"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            >
 
         </ImageView>
     </LinearLayout>
@@ -67,12 +69,10 @@
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_54sdp"
-        android:textSize="@dimen/_38sdp"
-        android:textColor="@color/black"
+        android:textSize="26sp"
+        style="@style/TEXTVIEWS"
         android:text="Welcome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,24 +80,23 @@
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:textSize="@dimen/_16sdp"
-        android:textColor="@color/black"
-
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+        android:textSize="16sp"
+        style="@style/TEXTVIEWS"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/tvUserMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:textColor="@color/black"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/tvUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+        android:textSize="16sp"
+        style="@style/TEXTVIEWS"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
