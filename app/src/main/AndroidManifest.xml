@@ -51,6 +51,7 @@
 
         <activity android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false"/>
     </application>
 

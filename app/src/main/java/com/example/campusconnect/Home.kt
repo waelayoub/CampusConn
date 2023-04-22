@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
+import java.util.*
 
 
 class Home : Fragment() {
@@ -26,6 +27,8 @@ class Home : Fragment() {
     private lateinit var con: Context
 
     private var eventlist= arrayListOf<EventModel>()
+    private lateinit var searchView:androidx.appcompat.widget.SearchView
+    private var searchList= arrayListOf<EventModel>()
 
 
 
@@ -42,13 +45,36 @@ class Home : Fragment() {
                 eventRef.get().addOnSuccessListener {
                     eventSnapshot ->
                     if (eventSnapshot.exists()){
-                        val event = eventSnapshot.getValue(EventModel::class.java)
-                        event!!.eventId = eventSnapshot.key
-                        eventlist.add(event!!)
+                            val event = eventSnapshot.getValue(EventModel::class.java)
+                            event!!.eventId = eventSnapshot.key
+                            eventlist.add(event!!)
+                            adapter.isShimmer=false
 
-                        adapter = EventModelAdapter(con,eventlist,false)
-                        adapter.isShimmer=false
-                        eventRecyclerView.adapter=adapter
+                                //
+
+                            val searchText=searchView.query.toString()!!.toLowerCase(Locale.getDefault())
+                            if (searchText.isNotEmpty()){
+
+                                if (event.eventName?.toLowerCase(Locale.getDefault())?.contains(searchText) == true){
+                                        searchList.add(event)
+                                }
+
+                                adapter = EventModelAdapter(con,searchList,false)
+                                adapter.isShimmer=false
+                                eventRecyclerView.adapter=adapter
+
+                            }else{
+
+                                searchList.clear()
+                                searchList.addAll(eventlist)
+                                adapter.notifyDataSetChanged()
+
+                            }
+
+                            //
+                            //adapter.notifyDataSetChanged()
+
+
                     }
                 }
 
@@ -57,6 +83,7 @@ class Home : Fragment() {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -65,12 +92,31 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event) {
                         eventlist.removeAt(i)
-                        adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
-                        eventRecyclerView.adapter=adapter
+
+
+                        searchList.clear()
+                        val searchText=searchView.query.toString()!!.toLowerCase(Locale.getDefault())
+                        if (searchText.isNotEmpty()){
+                            eventlist.forEach{
+                                if (it.eventName?.toLowerCase(Locale.getDefault())?.contains(searchText) == true){
+                                    searchList.add(it)
+                                }
+                            }
+                            adapter = EventModelAdapter(con,searchList,false)
+                            adapter.isShimmer=false
+                            eventRecyclerView.adapter=adapter
+
+                        }else{
+                            searchList.clear()
+                            adapter.notifyDataSetChanged()
+
+                        }
+
                         break
                     }
                 }
+
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -96,13 +142,25 @@ class Home : Fragment() {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist[i] = event
 
-                        adapter = EventModelAdapter(con,eventlist,false)
+                        //adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
-                        eventRecyclerView.adapter=adapter
+                        //eventRecyclerView.adapter=adapter
 
                         break
                     }
                 }
+                for (i in searchList.indices) {
+                    if (searchList[i].eventId == event.eventId) {
+                        searchList[i] = event
+
+                        //adapter = EventModelAdapter(con,eventlist,false)
+                        adapter.isShimmer=false
+                        //eventRecyclerView.adapter=adapter
+
+                        break
+                    }
+                }
+                adapter.notifyDataSetChanged()
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -112,9 +170,11 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist.removeAt(i)
-                        adapter = EventModelAdapter(con,eventlist,false)
+                        //adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
-                        eventRecyclerView.adapter=adapter
+                        adapter.notifyDataSetChanged()
+                        //eventRecyclerView.adapter=adapter
+
                         break
                     }
                 }
@@ -146,17 +206,55 @@ class Home : Fragment() {
         eventlist.clear()
 
 
+        searchView=binding.searchview
+
         adapter = EventModelAdapter(requireContext(),eventlist,false)
         eventRecyclerView = binding.eventlist
+
         eventRecyclerView.layoutManager=LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
 
+
         con=requireContext()
         getEventData()
+        searchListener()
 
 
         return binding.root
+    }
+    private fun searchListener(){
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchList.clear()
+                val searchText=newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()){
+                    eventlist.forEach{
+                        if (it.eventName?.toLowerCase(Locale.getDefault())?.contains(searchText) == true){
+                            searchList.add(it)
+                        }
+                    }
+
+                }else{
+                    searchList.clear()
+                    searchList.addAll(eventlist)
+
+                }
+                adapter = EventModelAdapter(con,searchList,false)
+                adapter.isShimmer=false
+                eventRecyclerView.adapter=adapter
+
+                return false
+            }
+
+
+        })
     }
 
 
