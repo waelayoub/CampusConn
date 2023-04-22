@@ -123,7 +123,7 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
                     }
 
                     println(msg)
-                }
+                }.addOnFailureListener { println("Action failed") }
             }
             Glide.with(context).load(currentitem.eventIcon).into(holder.eventImg)
 
