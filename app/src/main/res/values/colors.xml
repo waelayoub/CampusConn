@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="thermocolor">
+        <item name="android:angle">90</item>
+        <item name="android:endColor">#FFC107</item>
+        <item name="android:centerColor">#FF5722</item>
+        <item name="android:startColor">#E91E63</item>
+        <item name="android:angle">90</item>
+        <item name="android:type">linear</item>
+    </color>
     <color name="transparent">#00000000</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

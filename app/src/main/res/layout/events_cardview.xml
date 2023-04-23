@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content">
 <androidx.cardview.widget.CardView
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_31sdp"
@@ -53,7 +54,7 @@
 
         <TextView
             android:id="@+id/eventTimeID"
-            android:layout_width="@dimen/_110sdp"
+            android:layout_width="@dimen/_140sdp"
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="12sp"
@@ -66,21 +67,93 @@
             android:paddingStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             />
-
-        <TextView
-            android:layout_width="@dimen/_50sdp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/evenTempID"
-            android:text=""
-
-            android:textSize="9sp"
             android:layout_below="@id/eventTimeID"
             android:layout_toEndOf="@id/imageID"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            style="@style/TVinCV"
-            android:background="@drawable/roundedshimmerlabel"
-            android:paddingStart="@dimen/_8sdp"/>
+            android:id="@+id/linear1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/thermometer"
+                android:src="@drawable/baseline_device_thermostat_24"/>
+
+            <TextView
+                android:layout_width="@dimen/_33sdp"
+                android:layout_height="wrap_content"
+                android:id="@+id/evenTempID"
+                android:text="21"
+                android:textSize="9sp"
+                android:layout_gravity="center"
+
+                style="@style/TVinCV"
+                android:background="@drawable/roundedshimmerlabel"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/eventTimeID"
+            android:layout_toEndOf="@id/linear1"
+            android:id="@+id/linear2"
+            android:layout_marginLeft="@dimen/_8sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/humidity"
+                android:src="@drawable/baseline_water_drop_24"/>
+
+            <TextView
+                android:layout_width="@dimen/_33sdp"
+                android:layout_height="wrap_content"
+                android:id="@+id/evenHumID"
+                android:text="22"
+                android:textSize="9sp"
+                android:layout_gravity="center"
+                style="@style/TVinCV"
+                android:background="@drawable/roundedshimmerlabel"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/eventTimeID"
+            android:layout_toEndOf="@id/linear2"
+            android:id="@+id/linear3"
+            android:visibility="invisible"
+            android:layout_marginLeft="@dimen/_8sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/warning"
+                android:src="@drawable/fire_warning_24"/>
+
+            <TextView
+                android:layout_width="@dimen/_33sdp"
+                android:layout_height="wrap_content"
+                android:id="@+id/eventWarningID"
+                android:text="fire"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_gravity="center"
+
+                android:textColor="@color/sheets_md_red_A700"
+                style="@style/TVinCV"
+                android:background="@drawable/roundedshimmerlabel"
+                />
+
+        </LinearLayout>
+
 
 
         <ImageView

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,18 +25,34 @@ import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 
 
-class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel>,val specifier:Boolean):
+class EventModelAdapter(val context: Context, var eventlist:ArrayList<EventModel>,val specifier:Boolean):
     RecyclerView.Adapter<EventModelAdapter.MyViewHolder>(){
 
     var isShimmer=true
     val shimmerNumber=7
+
+
+
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val eventName:TextView=itemView.findViewById(R.id.eventNameID)
         val eventTime:TextView=itemView.findViewById(R.id.eventTimeID)
         val eventImg:ImageView=itemView.findViewById(R.id.imageID)
+
+        val eventTempImg:ImageView=itemView.findViewById(R.id.thermometer)
         val eventTemp:TextView=itemView.findViewById(R.id.evenTempID)
+
+        val eventHuImg:ImageView=itemView.findViewById(R.id.humidity)
+        val eventHumidity:TextView=itemView.findViewById(R.id.evenHumID)
+
+        val eventWar:TextView=itemView.findViewById(R.id.eventWarningID)
+
+        val linearTemp:LinearLayout=itemView.findViewById(R.id.linear1)
+        val linearHumidity:LinearLayout=itemView.findViewById(R.id.linear2)
+        val linearWarning:LinearLayout=itemView.findViewById(R.id.linear3)
+
         val deleteBTN:ImageView=itemView.findViewById(R.id.deletebtn)
+
         val shimmerViewContainer:ShimmerFrameLayout=itemView.findViewById(R.id.shimmer_view_container)
 
     }
@@ -56,12 +73,15 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
 
         if(isShimmer){
             holder.shimmerViewContainer.startShimmer()
-            if (specifier == true) {
-                //holder.eventTemp.text = "18°C"
-                holder.eventTemp.background=null
-                holder.deleteBTN.visibility = View.VISIBLE
+            if (specifier == true ) {
+                    holder.eventTemp.background = null
+                    holder.eventHumidity.background = null
+                    holder.deleteBTN.visibility = View.VISIBLE
+
             } else {
-                holder.eventTemp.visibility = View.INVISIBLE
+                holder.linearTemp.visibility = View.INVISIBLE
+                holder.linearHumidity.visibility=View.INVISIBLE
+
                 holder.deleteBTN.visibility = View.INVISIBLE
             }
             
@@ -69,16 +89,37 @@ class EventModelAdapter(val context: Context, val eventlist:ArrayList<EventModel
             holder.shimmerViewContainer.stopShimmer()
             holder.shimmerViewContainer.setShimmer(null)
             if (specifier == true) {
-                //holder.eventTemp.text = "18°C"
+                val currentitem = eventlist[position]
+                println("The Temp is :"+currentitem.eventTemp)
+
+                if (currentitem.eventTemp.toString()!="-273.0" && currentitem.eventHum.toString()!="-1.0" ) {
+                    holder.eventTemp.text = currentitem.eventTemp.toString() + " °C"
+                    holder.eventHumidity.text = currentitem.eventHum.toString() + " %"
+                }else{
+                    holder.linearTemp.visibility=View.INVISIBLE
+                    holder.linearHumidity.visibility=View.INVISIBLE
+                }
+
+                if (currentitem.eventWarning!="0"){
+                    holder.eventWar.background=null
+                    holder.linearWarning.visibility=View.VISIBLE
+                }else{
+                    holder.linearWarning.visibility=View.INVISIBLE
+                }
+
                 holder.eventTemp.background=null
+                holder.eventHumidity.background=null
                 holder.deleteBTN.visibility = View.VISIBLE
             } else {
-                holder.eventTemp.visibility = View.INVISIBLE
+                holder.linearTemp.visibility = View.INVISIBLE
+                holder.linearHumidity.visibility=View.INVISIBLE
+
                 holder.deleteBTN.visibility = View.INVISIBLE
             }
 
 
             val currentitem = eventlist[position]
+            println("The Temp is :"+currentitem.eventTemp)
 
             holder.eventName.text = currentitem.eventName
             holder.eventName.background=null

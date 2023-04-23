@@ -42,17 +42,21 @@
         <item name="colorPrimary">@color/background_blue</item>
         <item name="android:textColorPrimary">@color/background_blue</item>
 
+
     </style>
     <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">@color/background_blue</item>
         <item name="android:weekNumberColor">@color/background_blue</item>
         <item name="android:headerYearTextAppearance">@color/background_blue</item>
 
+
     </style>
     <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">@color/background_blue</item>
 
     </style>
+
+
 
 
     <!--CARDVIEWS-->
@@ -89,6 +93,7 @@
         <!-- Hint text color -->
         <item name="android:textColorHint">@color/background_blue</item>
     </style>
+
 
 
 

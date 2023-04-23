@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_CampusConnect)
         setContentView(binding.root)
 
+        window.enterTransition = null
+        window.exitTransition = null
+
         if (theme_object.themebool){
 
             replaceFragment(settingsFragment)
