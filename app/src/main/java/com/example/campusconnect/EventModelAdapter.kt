@@ -1,18 +1,13 @@
 package com.example.campusconnect
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -21,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 
 
@@ -90,7 +84,6 @@ class EventModelAdapter(val context: Context, var eventlist:ArrayList<EventModel
             holder.shimmerViewContainer.setShimmer(null)
             if (specifier == true) {
                 val currentitem = eventlist[position]
-                println("The Temp is :"+currentitem.eventTemp)
 
                 if (currentitem.eventTemp.toString()!="-273.0" && currentitem.eventHum.toString()!="-1.0" ) {
                     holder.eventTemp.text = currentitem.eventTemp.toString() + " °C"
@@ -100,7 +93,7 @@ class EventModelAdapter(val context: Context, var eventlist:ArrayList<EventModel
                     holder.linearHumidity.visibility=View.INVISIBLE
                 }
 
-                if (currentitem.eventWarning!="0"){
+                if (currentitem.eventWarning!=0){
                     holder.eventWar.background=null
                     holder.linearWarning.visibility=View.VISIBLE
                 }else{
@@ -119,7 +112,6 @@ class EventModelAdapter(val context: Context, var eventlist:ArrayList<EventModel
 
 
             val currentitem = eventlist[position]
-            println("The Temp is :"+currentitem.eventTemp)
 
             holder.eventName.text = currentitem.eventName
             holder.eventName.background=null
@@ -144,7 +136,8 @@ class EventModelAdapter(val context: Context, var eventlist:ArrayList<EventModel
                         currentitem.eventDescription.toString(),
                         currentitem.eventFlyer.toString(),
                         currentitem.eventIcon.toString(),
-                        currentitem.eventId.toString()
+                        currentitem.eventId.toString(),
+                        specifier
                     )
                     replace(R.id.frame_layout, popUp).commit()
                 }
