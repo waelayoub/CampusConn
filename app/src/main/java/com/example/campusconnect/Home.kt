@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -48,6 +49,9 @@ class Home : Fragment() {
                             val event = eventSnapshot.getValue(EventModel::class.java)
                             event!!.eventId = eventSnapshot.key
                             eventlist.add(event!!)
+                            eventlist.sortBy {
+                                SimpleDateFormat("dd/MM/yyyy HH:mm").parse(it.eventDate+" "+it.eventTime).time
+                            }
                             adapter.isShimmer=false
 
                                 //
@@ -60,7 +64,7 @@ class Home : Fragment() {
                                 }
 
                                 adapter = EventModelAdapter(con,searchList,false)
-                                adapter.isShimmer=false
+                                //adapter.isShimmer=false
                                 eventRecyclerView.adapter=adapter
 
                             }else{
@@ -76,7 +80,10 @@ class Home : Fragment() {
 
 
                     }
+
                 }
+
+
 
 
 
@@ -141,7 +148,6 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist[i] = event
-
                         //adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
                         //eventRecyclerView.adapter=adapter
@@ -174,23 +180,15 @@ class Home : Fragment() {
                         adapter.isShimmer=false
                         adapter.notifyDataSetChanged()
                         //eventRecyclerView.adapter=adapter
-
                         break
                     }
                 }
             }
-
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
             }
-
             override fun onCancelled(error: DatabaseError) {
-
             }
-
         })
-
-
     }
 
 
@@ -200,27 +198,17 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding=FragmentHomeBinding.inflate(inflater, container, false)
-
         eventlist.clear()
-
-
         searchView=binding.searchview
-
         adapter = EventModelAdapter(requireContext(),eventlist,false)
         eventRecyclerView = binding.eventlist
-
         eventRecyclerView.layoutManager=LinearLayoutManager(context)
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
-
-
         con=requireContext()
         getEventData()
         searchListener()
-
-
         return binding.root
     }
     private fun searchListener(){
@@ -240,23 +228,15 @@ class Home : Fragment() {
                             searchList.add(it)
                         }
                     }
-
                 }else{
                     searchList.clear()
                     searchList.addAll(eventlist)
-
                 }
                 adapter = EventModelAdapter(con,searchList,false)
                 adapter.isShimmer=false
                 eventRecyclerView.adapter=adapter
-
                 return false
             }
-
-
         })
     }
-
-
-
 }

@@ -61,14 +61,13 @@ class MyEvents : Fragment() {
     }
 
 
-    private fun getEventData1(){
-        val uid:String=auth.currentUser!!.uid
+    private fun getEventData1() {
+        val uid: String = auth.currentUser!!.uid
 
 
         dbrefReg.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                dbrefActive.child(snapshot.key!!).get().addOnSuccessListener {
-                    task ->
+                dbrefActive.child(snapshot.key!!).get().addOnSuccessListener { task ->
                     if (task.exists()) {
                         println("I am in child added")
                         if (snapshot.child(uid).exists()) {
@@ -99,13 +98,13 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(con,eventlist,true)
-                        eventRecyclerView.adapter=adapter
+                        adapter = EventModelAdapter(con, eventlist, true)
+                        eventRecyclerView.adapter = adapter
                         break
                     }
                 }
 
-                adapter.isShimmer=false
+                adapter.isShimmer = false
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -114,12 +113,12 @@ class MyEvents : Fragment() {
                 for ((index, event) in eventlist.withIndex()) {
                     if (event.eventId == removedKey) {
                         eventlist.removeAt(index)
-                        adapter=EventModelAdapter(con,eventlist,true)
-                        eventRecyclerView.adapter=adapter
+                        adapter = EventModelAdapter(con, eventlist, true)
+                        eventRecyclerView.adapter = adapter
                         break
                     }
                 }
-                adapter.isShimmer=false
+                adapter.isShimmer = false
 
             }
 
@@ -132,213 +131,73 @@ class MyEvents : Fragment() {
             }
         })
 
-        dbrefActive.
-                addChildEventListener(object :ChildEventListener{
-                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                        println("added in active")
+        dbrefActive.addChildEventListener(object : ChildEventListener {
+
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                println("added in active")
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val removedKey = snapshot.key
+                for ((index, event) in eventlist.withIndex()) {
+                    if (event.eventId == removedKey) {
+                        eventlist.removeAt(index)
+                        adapter = EventModelAdapter(con, eventlist, true)
+                        eventRecyclerView.adapter = adapter
+                        break
                     }
+                }
+                adapter.isShimmer = false
+            }
 
-                    override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            }
 
-                    }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
-                    override fun onChildRemoved(snapshot: DataSnapshot) {
-                        val removedKey = snapshot.key
-                        for ((index, event) in eventlist.withIndex()) {
-                            if (event.eventId == removedKey) {
-                                eventlist.removeAt(index)
-                                adapter=EventModelAdapter(con,eventlist,true)
-                                eventRecyclerView.adapter=adapter
-                                break
-                            }
-                        }
+
+        dbrefEvent.addChildEventListener(object :ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                println("ANAAAA belll changeddd")
+                val event = snapshot.getValue(EventModel::class.java)
+                event!!.eventId = snapshot.key
+
+                for (i in eventlist.indices) {
+                    if (eventlist[i].eventId == event.eventId) {
+                        eventlist[i] = event
                         adapter.isShimmer=false
+                        break
                     }
+                }
+                adapter.notifyDataSetChanged()
+            }
 
-                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    }
+            override fun onChildRemoved(snapshot: DataSnapshot) {
 
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-                })
+            }
 
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
 
+            }
 
-//        dbrefReg.addChildEventListener(object : ChildEventListener {
-//            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-//
-//
-//                dbrefActive.child(snapshot.key!!).get().addOnSuccessListener {
-//
-//                    if (snapshot.child(uid).exists()) {
-//                        val eventRef = dbrefEvent.child(snapshot.key!!)
-//                        eventRef.get().addOnSuccessListener { eventSnapshot ->
-//                            if (eventSnapshot.exists()) {
-//                                val eventData = eventSnapshot.getValue(EventModel::class.java)
-//                                eventData!!.eventId=eventSnapshot.key
-//                                eventlist.add(eventData!!)
-//                                eventRecyclerView.adapter?.notifyDataSetChanged()
-//                                // Process the data as needed
-//                            }
-//                        }.addOnFailureListener { exception ->
-//                            // Handle any errors that occur
-//                        }
-//                    }
-//                    adapter.isShimmer=false
-//                }
-//
-//
-//            }
-//
-//            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                println("I am in child changed")
-//
-//                val removedKey = snapshot.key
-//                for ((index, event) in eventlist.withIndex()) {
-//                    if (event.eventId == removedKey) {
-//                        eventlist.removeAt(index)
-//                        adapter=EventModelAdapter(requireContext(),eventlist,true)
-//                        eventRecyclerView.adapter=adapter
-//                        break
-//                    }
-//                }
-//
-//                adapter.isShimmer=false
-//            }
-//
-//            override fun onChildRemoved(snapshot: DataSnapshot) {
-//                println("I am in child removed")
-//                val removedKey = snapshot.key
-//                for ((index, event) in eventlist.withIndex()) {
-//                    if (event.eventId == removedKey) {
-//                        eventlist.removeAt(index)
-//                        adapter=EventModelAdapter(requireContext(),eventlist,true)
-//                        eventRecyclerView.adapter=adapter
-//                        eventRecyclerView.adapter?.notifyDataSetChanged()
-//                        break
-//                    }
-//                }
-//                adapter.isShimmer=false
-//
-//            }
-//
-//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-//                // Implement code to handle movement of data
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Handle any errors that occur
-//            }
-//        })
-//
-//        dbrefActive.addChildEventListener(object : ChildEventListener{
-//            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-//                println("I am in child added 2nd listener")
-//            }
-//
-//            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                println("I am in child changed 2nd listener")
-//
-//            }
-//
-//            override fun onChildRemoved(snapshot: DataSnapshot) {
-//                println("I am in child removed 2nd listener")
-//                val removedKey = snapshot.key
-//                for ((index, event) in eventlist.withIndex()) {
-//                    if (event.eventId == removedKey) {
-//                        eventlist.removeAt(index)
-//                        adapter=EventModelAdapter(requireContext(),eventlist,true)
-//                        eventRecyclerView.adapter=adapter
-//                        eventRecyclerView.adapter?.notifyDataSetChanged()
-//                        break
-//                    }
-//                }
-//                adapter.isShimmer=false
-//            }
-//
-//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//            }
-//        })
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
 
     }
-
-
-
-
-
-//    private fun getEventData() {
-//
-//        val uid:String=auth.currentUser!!.uid
-//
-//        dbrefReg.addChildEventListener(object : ChildEventListener {
-//            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-////                println("I am in child Added")
-//                if (snapshot.child(uid).exists()) {
-//                    val eventRef = dbrefEvent.child(snapshot.key!!)
-//                    eventRef.get().addOnSuccessListener { eventSnapshot ->
-//                        if (eventSnapshot.exists()) {
-//                            val eventData = eventSnapshot.getValue(EventModel::class.java)
-//                            eventData!!.eventId=eventSnapshot.key
-//                            eventlist.add(eventData!!)
-//                            eventRecyclerView.adapter?.notifyDataSetChanged()
-//                            // Process the data as needed
-//                        }
-//                    }.addOnFailureListener { exception ->
-//                        // Handle any errors that occur
-//                    }
-//                }
-//                adapter.isShimmer=false
-//
-//            }
-//
-//            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                println("I am in child changed")
-//
-//                val removedKey = snapshot.key
-//                for ((index, event) in eventlist.withIndex()) {
-//                    if (event.eventId == removedKey) {
-//                        eventlist.removeAt(index)
-//                        adapter=EventModelAdapter(requireContext(),eventlist,true)
-//                        eventRecyclerView.adapter=adapter
-//                        eventRecyclerView.adapter?.notifyDataSetChanged()
-//                        break
-//                    }
-//                }
-//
-//                adapter.isShimmer=false
-//            }
-//
-//            override fun onChildRemoved(snapshot: DataSnapshot) {
-//                println("I am in child removed")
-//                val removedKey = snapshot.key
-//                for ((index, event) in eventlist.withIndex()) {
-//                    if (event.eventId == removedKey) {
-//                        eventlist.removeAt(index)
-//                        adapter=EventModelAdapter(requireContext(),eventlist,true)
-//                        eventRecyclerView.adapter=adapter
-//                        eventRecyclerView.adapter?.notifyDataSetChanged()
-//                        break
-//                    }
-//                }
-//                adapter.isShimmer=false
-//
-//            }
-//
-//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-//                // Implement code to handle movement of data
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Handle any errors that occur
-//            }
-//        })
-//
-//    }
-
-
 
 
 }
