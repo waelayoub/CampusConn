@@ -10,9 +10,9 @@ data class EventModel(
     var eventDescription: String? = null,
     var eventFlyer: String? = null,
     var eventIcon: String? = null,
-    var eventId: String? = null,
     var eventTemp:Float?=null,
     var eventHum:Float?=null,
-    var eventWarning:String?=null
+    var eventWarning:Int?=null,
+    var eventId: String? = null
 
     )

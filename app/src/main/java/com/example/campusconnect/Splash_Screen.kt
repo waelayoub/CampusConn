@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.microsoft.graph.authentication.IAuthenticationProvider
-import com.microsoft.graph.models.User
 import com.microsoft.graph.requests.GraphServiceClient
 import com.microsoft.identity.client.IAccount
 import com.microsoft.identity.client.IAuthenticationResult
@@ -217,6 +216,7 @@ class Splash_Screen : AppCompatActivity() {
                 intent.putExtra("name", result.displayName)
                 intent.putExtra("id", result.id.toString())
                 intent.putExtra("mail", result.mail)*/
+                intent.putExtra("mail", result.mail)
                 startActivity(intent)
                 finish()
             }

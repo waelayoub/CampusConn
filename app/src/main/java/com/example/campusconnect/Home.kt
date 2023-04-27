@@ -1,20 +1,21 @@
 package com.example.campusconnect
 
-import android.app.Activity
-import android.app.Application
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,9 +24,14 @@ class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var dbref: DatabaseReference
     private lateinit var dbrefEvent:DatabaseReference
+    private lateinit var dbrefReg:DatabaseReference
+
     private lateinit var adapter: EventModelAdapter
     private lateinit var eventRecyclerView: RecyclerView
     private lateinit var con: Context
+
+    private val auth: FirebaseAuth = Firebase.auth
+
 
     private var eventlist= arrayListOf<EventModel>()
     private lateinit var searchView:androidx.appcompat.widget.SearchView
@@ -37,6 +43,8 @@ class Home : Fragment() {
 
         dbref= FirebaseDatabase.getInstance().getReference("Active")
         dbrefEvent= FirebaseDatabase.getInstance().getReference("Events")
+        dbrefReg= FirebaseDatabase.getInstance().getReference("registrations")
+
 
 
         dbref.addChildEventListener(object : ChildEventListener {
@@ -74,6 +82,28 @@ class Home : Fragment() {
                                 adapter.notifyDataSetChanged()
 
                             }
+
+                        if (event.eventWarning==1 && !FireAlarmWarning.triggered ){
+                            val registeredToEvent = dbrefReg.child(event.eventId!!).child(auth.currentUser!!.uid)
+                            registeredToEvent.get().addOnSuccessListener {
+                                task ->
+                                if (task.exists()){
+                                    FireAlarmWarning.triggered=true
+                                    val builder = AlertDialog.Builder(this@Home.context)
+                                    builder.setMessage("Warning: In one event you registered, the fire alarm has been turned on")
+                                        .setCancelable(false)
+                                        .setPositiveButton("OK") { dialog, id ->
+                                            // do something when the OK button is clicked
+                                        }
+                                    val alert = builder.create()
+                                    alert.show()
+                                }
+                            }
+
+
+
+                        }
+
 
                             //
                             //adapter.notifyDataSetChanged()
@@ -144,9 +174,25 @@ class Home : Fragment() {
 
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
-
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
+                        if (eventlist[i].eventWarning!=event.eventWarning && event.eventWarning!=0){
+                            val registeredToEvent = dbrefReg.child(event.eventId!!).child(auth.currentUser!!.uid)
+
+                            registeredToEvent.get().addOnSuccessListener {
+                                task ->
+                                if (task.exists()){
+                                    val builder = AlertDialog.Builder(con)
+                                    builder.setMessage("Warning: In one event you registered, the fire alarm has been turned on")
+                                        .setCancelable(false)
+                                        .setPositiveButton("OK") { dialog, id ->
+                                            // do something when the OK button is clicked
+                                        }
+                                    val alert = builder.create()
+                                    alert.show()
+                                }
+                            }
+                        }
                         eventlist[i] = event
                         //adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
@@ -166,7 +212,9 @@ class Home : Fragment() {
                         break
                     }
                 }
+
                 adapter.notifyDataSetChanged()
+
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {

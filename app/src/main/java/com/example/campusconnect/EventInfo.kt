@@ -27,7 +27,8 @@ class EventInfo(private val eventName: String,
                 private val eventDescription: String,
                 private val eventFlyer: String,
                 private val eventIcon: String,
-                private val eventId: String) : Fragment() {
+                private val eventId: String,
+                private val homeOrigin:Boolean) : Fragment() {
 
     private lateinit var binding: FragmentEventInfoBinding
     private val auth: FirebaseAuth = Firebase.auth
@@ -58,8 +59,13 @@ class EventInfo(private val eventName: String,
         binding.closebtn.setOnClickListener{
             val activity=it!!.context as AppCompatActivity
             activity.supportFragmentManager.beginTransaction().apply{
-                val popUp=Home()
-                replace(R.id.frame_layout,popUp).commit()
+                if (!homeOrigin) {
+                    val popUp = Home()
+                    replace(R.id.frame_layout, popUp).commit()
+                }else{
+                    val popUp = MyEvents()
+                    replace(R.id.frame_layout, popUp).commit()
+                }
             }
         }
 
