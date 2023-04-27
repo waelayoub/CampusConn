@@ -1,12 +1,17 @@
 package com.example.campusconnect
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.campusconnect.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +21,14 @@ class MainActivity : AppCompatActivity() {
     private val myEventsFragment=MyEvents()
     private val settingsFragment=Settings()
 
+    private lateinit var mAddFab: FloatingActionButton
+    private lateinit var mAddAlarmFab: FloatingActionButton
+    private lateinit var mAddPersonFab: FloatingActionButton
+
+    // These are taken to make visible and invisible along with FABs
+    private lateinit var addAlarmActionText: TextView
+    private lateinit var addPersonActionText: TextView
+    private var isAllFabsVisible: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +41,76 @@ class MainActivity : AppCompatActivity() {
         binding=ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.Theme_CampusConnect)
         setContentView(binding.root)
+
+        mAddFab = binding.addFab
+
+        // FAB button
+        mAddAlarmFab = binding.addAlarmFab
+        mAddPersonFab = binding.addPersonFab
+
+        // Also register the action name text, of all the FABs.
+        addAlarmActionText = binding.addAlarmActionText
+        addPersonActionText = binding.addPersonActionText
+
+
+//        mAddAlarmFab.visibility = View.GONE
+//        mAddPersonFab.visibility = View.GONE
+//        addAlarmActionText.visibility = View.GONE
+//        addPersonActionText.visibility = View.GONE
+
+        // make the boolean variable as false, as all the
+        // action name texts and all the sub FABs are invisible
+        isAllFabsVisible = false
+        println("Got from extra")
+        println(intent.getStringExtra("mail"))
+        if(intent.getStringExtra("mail")=="wael.ayoub@net.usj.edu.lb"){
+            mAddFab.visibility=View.VISIBLE
+        }
+
+
+        mAddFab.setOnClickListener(View.OnClickListener {
+            (if (!isAllFabsVisible!!) {
+                // when isAllFabsVisible becomes true make all
+                // the action name texts and FABs VISIBLE
+                mAddAlarmFab.show()
+                mAddPersonFab.show()
+                addAlarmActionText.visibility = View.VISIBLE
+                addPersonActionText.visibility = View.VISIBLE
+
+                // make the boolean variable true as we
+                // have set the sub FABs visibility to GONE
+                true
+            } else {
+                // when isAllFabsVisible becomes true make
+                // all the action name texts and FABs GONE.
+                mAddAlarmFab.hide()
+                mAddPersonFab.hide()
+                addAlarmActionText.visibility = View.GONE
+                addPersonActionText.visibility = View.GONE
+
+                // make the boolean variable false as we
+                // have set the sub FABs visibility to GONE
+                false
+            }).also { isAllFabsVisible = it }
+        })
+        // below is the sample action to handle add person FAB. Here it shows simple Toast msg.
+        // The Toast will be shown only when they are visible and only when user clicks on them
+        mAddPersonFab.setOnClickListener {
+            val intent = Intent(this, InsertionActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        // below is the sample action to handle add alarm FAB. Here it shows simple Toast msg
+        // The Toast will be shown only when they are visible and only when user clicks on them
+        mAddAlarmFab.setOnClickListener {
+            val intent = Intent(this, FetchingActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
+
 
         window.enterTransition = null
         window.exitTransition = null

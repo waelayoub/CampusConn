@@ -216,6 +216,7 @@ class Splash_Screen : AppCompatActivity() {
                 intent.putExtra("name", result.displayName)
                 intent.putExtra("id", result.id.toString())
                 intent.putExtra("mail", result.mail)*/
+                intent.putExtra("mail", result.mail)
                 startActivity(intent)
                 finish()
             }

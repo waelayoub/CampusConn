@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <EditText
+            android:id="@+id/etEvtId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@string/event_id"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            />
+
+        <EditText
+            android:id="@+id/etEvtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_name"
+            />
+
+        <EditText
+            android:id="@+id/etEvtDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_date"
+            android:inputType="date"
+            />
+
+        <EditText
+            android:id="@+id/etEvtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@string/event_time"
+            android:inputType="time"
+            />
+
+        <EditText
+            android:id="@+id/etEvtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_location" />
+
+        <EditText
+            android:id="@+id/etEvtOrganizer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_organier"
+            />
+
+        <EditText
+            android:id="@+id/etEvtType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@string/event_type" />
+
+        <EditText
+            android:id="@+id/etEvtCapacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_capacity"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/etEvtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_description"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/etEvtFlyer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@string/event_flyer"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/etEvtIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:ems="10"
+            android:hint="@string/event_icon" />
+
+        <Button
+            android:id="@+id/btnUpdateData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/update_data"
+            />
+
+    </LinearLayout>
+</ScrollView>
