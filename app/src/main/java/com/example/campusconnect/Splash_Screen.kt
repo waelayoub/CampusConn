@@ -27,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 
 
 import com.example.campusconnect.databinding.ActivitySplashScreenBinding
+import com.microsoft.graph.models.User
 import com.microsoft.identity.client.*
 
 import kotlinx.coroutines.Dispatchers
@@ -205,37 +206,19 @@ class Splash_Screen : AppCompatActivity() {
                 return@launch
             } else {
                 if (result.mail!=null){
-                    firebaseAuthUsage(result.mail!!, result.id!!, result.displayName)
+                    firebaseAuthUsage(result.mail!!, result.id!!, result.displayName,result)
                 }else{
-                    firebaseAuthUsage(result.userPrincipalName!!, result.id!!, result.displayName)
-                }
-
-                val intent = Intent(applicationContext, MainActivity::class.java)
-//                val user = auth.currentUser
-                /*println("The user : " + user.toString())
-                println("Hello the user is " + user?.displayName.toString())
-                intent.putExtra("name", result.displayName)
-                intent.putExtra("id", result.id.toString())
-                intent.putExtra("mail", result.mail)*/
-                if (result.mail=="ralph.tawil1@net.usj.edu.lb" || result.mail=="wael.ayoub@net.usj.edu.lb"||result.mail=="charbel.hajjmoussa@net.usj.edu.lb" ){
-                    intent.putExtra("user","admin")
-                }else{
-                    intent.putExtra("user","student")
+                    firebaseAuthUsage(result.userPrincipalName!!, result.id!!, result.displayName,result)
                 }
 
 
-                intent.putExtra("name",result.displayName)
-
-
-                startActivity(intent)
-                finish()
             }
 
         }
 
     }
 
-    private fun firebaseAuthUsage(mail:String, pass:String, name:String?) {
+    private fun firebaseAuthUsage(mail:String, pass:String, name:String?,result:User) {
         println("Entered firebase auth")
         auth.createUserWithEmailAndPassword(mail, pass)
             .addOnCompleteListener(this) { task ->
@@ -243,6 +226,19 @@ class Splash_Screen : AppCompatActivity() {
                     println("Firebase creation Success")
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    if (result.mail=="ralph.tawil1@net.usj.edu.lb" || result.mail=="wael.ayoub@net.usj.edu.lb"||result.mail=="charbel.hajjmoussa@net.usj.edu.lb" ){
+                        intent.putExtra("user","admin")
+                    }else{
+                        intent.putExtra("user","student")
+                    }
+
+
+                    intent.putExtra("name",result.displayName)
+
+
+                    startActivity(intent)
+                    finish()
 
                     println("Creation of user successful (Firebase)")
                     return@addOnCompleteListener
@@ -251,6 +247,19 @@ class Splash_Screen : AppCompatActivity() {
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 println("Logging of user successful (Firebase)")
+                                val intent = Intent(applicationContext, MainActivity::class.java)
+                                if (result.mail=="ralph.tawil1@net.usj.edu.lb" || result.mail=="wael.ayoub@net.usj.edu.lb"||result.mail=="charbel.hajjmoussa@net.usj.edu.lb" ){
+                                    intent.putExtra("user","admin")
+                                }else{
+                                    intent.putExtra("user","student")
+                                }
+
+
+                                intent.putExtra("name",result.displayName)
+
+
+                                startActivity(intent)
+                                finish()
 
                                 println("The name that should appear is : " + name)
 

@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (theme_object.themebool){
-            settingsFragment= Settings()
             replaceFragment(settingsFragment)
             theme_object.themebool=false
         }else{
