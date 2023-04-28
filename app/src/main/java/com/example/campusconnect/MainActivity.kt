@@ -24,10 +24,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mAddFab: FloatingActionButton
     private lateinit var mAddAlarmFab: FloatingActionButton
     private lateinit var mAddPersonFab: FloatingActionButton
+    private lateinit var userName:String
 
-    // These are taken to make visible and invisible along with FABs
-    private lateinit var addAlarmActionText: TextView
-    private lateinit var addPersonActionText: TextView
     private var isAllFabsVisible: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_CampusConnect)
         setContentView(binding.root)
 
+        userName=intent.getStringExtra("name").toString()
         mAddFab = binding.addFab
 
         // FAB button
@@ -92,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         // The Toast will be shown only when they are visible and only when user clicks on them
         mAddPersonFab.setOnClickListener {
             val intent = Intent(this, InsertionActivity::class.java)
+            intent.putExtra("name", userName)
             startActivity(intent)
             finish()
         }
@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         // The Toast will be shown only when they are visible and only when user clicks on them
         mAddAlarmFab.setOnClickListener {
             val intent = Intent(this, FetchingActivity::class.java)
+            intent.putExtra("name", userName)
             startActivity(intent)
             finish()
         }

@@ -50,11 +50,10 @@ class Settings : Fragment() {
 
         }
 
-        binding.tvUserName.text=auth.currentUser!!.displayName
+        binding.tvUserName.text= activity?.intent!!.getStringExtra("name")
         binding.tvUserMail.text =auth.currentUser!!.email
 
 
-        println("I am in Settings the user name is: "+auth.currentUser!!.displayName )
         println("I am in Settings the email is: "+ auth.currentUser!!.email )
 
         binding.SignOutButton.setOnClickListener {

@@ -334,6 +334,8 @@ class InsertionActivity : AppCompatActivity() {
 
         val parentActivityIntent = Intent(this, MainActivity::class.java)
         parentActivityIntent.putExtra("user","admin")
+        parentActivityIntent.putExtra("name", intent.getStringExtra("name"))
+
         finish()
         startActivity(parentActivityIntent)
     }
