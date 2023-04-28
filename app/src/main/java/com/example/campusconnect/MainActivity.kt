@@ -31,14 +31,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
-        val isDarkModeEnabled = sharedPreferences.getBoolean("is_dark_mode_enabled", false)
-        val mode = if (isDarkModeEnabled) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        AppCompatDelegate.setDefaultNightMode(mode)
+//        val sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+//        val isDarkModeEnabled = sharedPreferences.getBoolean("is_dark_mode_enabled", false)
+//        val mode = if (isDarkModeEnabled) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+//        AppCompatDelegate.setDefaultNightMode(mode)
 
         binding=ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.Theme_CampusConnect)
         setContentView(binding.root)
+
+        if (theme_object.themebool){
+
+            replaceFragment(settingsFragment)
+            theme_object.themebool=false
+        }else{
+            replaceFragment(homeFragment)
+        }
 
         userName=intent.getStringExtra("name").toString()
         mAddFab = binding.addFab
@@ -59,9 +67,9 @@ class MainActivity : AppCompatActivity() {
         // make the boolean variable as false, as all the
         // action name texts and all the sub FABs are invisible
         isAllFabsVisible = false
-        if(intent.getStringExtra("user")=="admin"){
-            mAddFab.visibility=View.VISIBLE
-        }
+//        if(intent.getStringExtra("user")=="admin"){
+//            mAddFab.visibility=View.VISIBLE
+//        }
 
 
         mAddFab.setOnClickListener(View.OnClickListener {
@@ -111,13 +119,7 @@ class MainActivity : AppCompatActivity() {
         window.enterTransition = null
         window.exitTransition = null
 
-        if (theme_object.themebool){
 
-            replaceFragment(settingsFragment)
-            theme_object.themebool=false
-        }else{
-            replaceFragment(homeFragment)
-        }
 
         //replaceFragment(homeFragment)
 
