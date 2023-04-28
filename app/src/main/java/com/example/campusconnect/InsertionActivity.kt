@@ -65,7 +65,7 @@ class InsertionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insertion)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         etEventID = findViewById(R.id.etEventId)
         etName = findViewById(R.id.etName)
@@ -197,6 +197,7 @@ class InsertionActivity : AppCompatActivity() {
                 }
                 progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
+                println("the image url is :"+imageUrl)
                 btnSaveData.isEnabled = true
 
 
@@ -332,6 +333,7 @@ class InsertionActivity : AppCompatActivity() {
         super.onBackPressed()
 
         val parentActivityIntent = Intent(this, MainActivity::class.java)
+        parentActivityIntent.putExtra("user","admin")
         finish()
         startActivity(parentActivityIntent)
     }

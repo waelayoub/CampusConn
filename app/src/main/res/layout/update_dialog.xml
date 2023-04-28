@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SCREEN">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,6 +19,8 @@
             android:editable="false"
             android:focusable="false"
             android:clickable="false"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"
             />
 
         <EditText
@@ -27,6 +30,8 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:ems="10"
             android:hint="@string/event_name"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"
             />
 
         <EditText
@@ -37,6 +42,9 @@
             android:ems="10"
             android:hint="@string/event_date"
             android:inputType="date"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"
+
             />
 
         <EditText
@@ -46,6 +54,8 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:hint="@string/event_time"
             android:inputType="time"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"
             />
 
         <EditText
@@ -54,7 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:ems="10"
-            android:hint="@string/event_location" />
+            android:hint="@string/event_location"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <EditText
             android:id="@+id/etEvtOrganizer"
@@ -63,6 +75,8 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:ems="10"
             android:hint="@string/event_organier"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"
             />
 
         <EditText
@@ -70,7 +84,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:hint="@string/event_type" />
+            android:hint="@string/event_type"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <EditText
             android:id="@+id/etEvtCapacity"
@@ -79,7 +95,9 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:ems="10"
             android:hint="@string/event_capacity"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <EditText
             android:id="@+id/etEvtDescription"
@@ -88,7 +106,9 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:ems="10"
             android:hint="@string/event_description"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <EditText
             android:id="@+id/etEvtFlyer"
@@ -96,7 +116,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:hint="@string/event_flyer"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <EditText
             android:id="@+id/etEvtIcon"
@@ -104,7 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:ems="10"
-            android:hint="@string/event_icon" />
+            android:hint="@string/event_icon" android:theme="@style/ThemeOverlay.SearchView"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <Button
             android:id="@+id/btnUpdateData"
@@ -113,6 +136,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/update_data"
+            android:background="@drawable/registeredbtnshape"
+            android:textColor="@color/white"
             />
 
     </LinearLayout>

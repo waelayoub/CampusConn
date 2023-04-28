@@ -40,7 +40,7 @@ class EventDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
 
-         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initView()
         setValuesToViews()

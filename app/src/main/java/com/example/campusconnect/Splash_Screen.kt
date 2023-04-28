@@ -216,7 +216,12 @@ class Splash_Screen : AppCompatActivity() {
                 intent.putExtra("name", result.displayName)
                 intent.putExtra("id", result.id.toString())
                 intent.putExtra("mail", result.mail)*/
-                intent.putExtra("mail", result.mail)
+                if (result.mail=="ralph.tawil1@net.usj.edu.lb" || result.mail=="wael.ayoub@net.usj.edu.lb"||result.mail=="charbel.hajjmoussa@net.usj.edu.lb" ){
+                    intent.putExtra("user","admin")
+                }else{
+                    intent.putExtra("user","student")
+                }
+
                 startActivity(intent)
                 finish()
             }
