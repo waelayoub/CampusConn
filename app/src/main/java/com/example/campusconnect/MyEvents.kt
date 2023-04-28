@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentMyEventsBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
@@ -40,6 +42,10 @@ class MyEvents : Fragment() {
         binding=FragmentMyEventsBinding.inflate(inflater, container, false)
 
         con= requireContext()
+        val activityMain = con as AppCompatActivity
+        activityMain.findViewById<FloatingActionButton>(R.id.add_fab).visibility=View.INVISIBLE
+        activityMain.findViewById<FloatingActionButton>(R.id.add_alarm_fab).visibility=View.INVISIBLE
+        activityMain.findViewById<FloatingActionButton>(R.id.add_person_fab).visibility=View.INVISIBLE
 
         eventlist.clear()
 
