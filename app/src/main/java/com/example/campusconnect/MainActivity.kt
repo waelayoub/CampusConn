@@ -49,8 +49,7 @@ class MainActivity : AppCompatActivity() {
         mAddPersonFab = binding.addPersonFab
 
         // Also register the action name text, of all the FABs.
-        addAlarmActionText = binding.addAlarmActionText
-        addPersonActionText = binding.addPersonActionText
+
 
 
 //        mAddAlarmFab.visibility = View.GONE
@@ -61,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         // make the boolean variable as false, as all the
         // action name texts and all the sub FABs are invisible
         isAllFabsVisible = false
-        println("Got from extra")
-        println(intent.getStringExtra("mail"))
-        if(intent.getStringExtra("mail")=="wael.ayoub@net.usj.edu.lb"){
+        if(intent.getStringExtra("user")=="admin"){
             mAddFab.visibility=View.VISIBLE
         }
 
@@ -74,8 +71,7 @@ class MainActivity : AppCompatActivity() {
                 // the action name texts and FABs VISIBLE
                 mAddAlarmFab.show()
                 mAddPersonFab.show()
-                addAlarmActionText.visibility = View.VISIBLE
-                addPersonActionText.visibility = View.VISIBLE
+
 
                 // make the boolean variable true as we
                 // have set the sub FABs visibility to GONE
@@ -85,8 +81,7 @@ class MainActivity : AppCompatActivity() {
                 // all the action name texts and FABs GONE.
                 mAddAlarmFab.hide()
                 mAddPersonFab.hide()
-                addAlarmActionText.visibility = View.GONE
-                addPersonActionText.visibility = View.GONE
+
 
                 // make the boolean variable false as we
                 // have set the sub FABs visibility to GONE

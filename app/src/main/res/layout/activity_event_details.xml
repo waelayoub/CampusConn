@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".EventDetailsActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SCREEN">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +22,9 @@
             app:layout_constraintEnd_toStartOf="@+id/btnDelete"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            android:textColor="@color/white"
+            android:background="@drawable/buttonshape"/>
 
         <Button
             android:id="@+id/btnDelete"
@@ -33,7 +36,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btnUpdate"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            android:background="@drawable/buttonshape"
+            android:textColor="@color/white"/>
 
 
         <LinearLayout
@@ -67,7 +72,7 @@
                         android:layout_marginStart="5dp"
                         android:gravity="left"
                         android:text="Event ID : "
-                        android:textColor="@color/event_blue1"
+                        style="@style/TEXTVIEWS"
                         android:textStyle="bold"
                         android:textSize="@dimen/_20sdp" />
                 </LinearLayout>
@@ -85,7 +90,7 @@
                         android:text=""
 
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/event_blue1"
+                        style="@style/TEXTVIEWS"
                         android:textStyle="bold"
                         android:textSize="@dimen/_20sdp"
                         android:textIsSelectable="true"

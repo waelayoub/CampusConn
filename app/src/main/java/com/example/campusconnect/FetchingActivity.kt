@@ -28,7 +28,7 @@ class FetchingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_fetching)
 
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         eventRecyclerView = findViewById(R.id.rvEvent)
         tvLoadingData = findViewById(R.id.tvLoadingData)
@@ -44,6 +44,7 @@ class FetchingActivity : AppCompatActivity() {
         super.onBackPressed()
 
         val parentActivityIntent = Intent(this, MainActivity::class.java)
+        parentActivityIntent.putExtra("user","admin")
         finish()
         startActivity(parentActivityIntent)
     }

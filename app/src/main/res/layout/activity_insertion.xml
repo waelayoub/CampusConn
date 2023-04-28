@@ -6,23 +6,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".InsertionActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SCREEN">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="@dimen/_2sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btnSaveData"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+       >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/_16sdp">
+            android:padding="@dimen/_16sdp"
+            style="@style/SCREEN">
 
             <!-- EventID Edit Text -->
             <TextView
@@ -33,7 +35,8 @@
                 android:text="Fill the upcoming event informations"
                 android:textAlignment="center"
                 android:textSize="@dimen/_26sdp"
-                android:textColor="@color/event_blue1"
+                style="@style/TEXTVIEWS"
+                android:layout_marginBottom="@dimen/_5sdp"
 
                 />
 
@@ -42,7 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="EventID"
-                android:padding="@dimen/_12sdp"/>
+                android:padding="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:backgroundTint="?attr/colorPrimary"/>
 
             <!-- Name Edit Text -->
             <EditText
@@ -51,7 +57,10 @@
                 android:layout_height="wrap_content"
                 android:hint="Name"
                 android:padding="@dimen/_12sdp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"/>
 
             <!-- Date Edit Text -->
             <EditText
@@ -60,6 +69,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Date"
                 android:padding="@dimen/_12sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"
                 />
 
             <!-- Time Edit Text -->
@@ -69,6 +81,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Time"
                 android:padding="@dimen/_12sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"
                 />
 
             <!-- Location Edit Text -->
@@ -78,7 +93,10 @@
                 android:layout_height="wrap_content"
                 android:hint="Location"
                 android:padding="@dimen/_12sdp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"/>
 
             <!-- Organizer Edit Text -->
             <EditText
@@ -87,7 +105,10 @@
                 android:layout_height="wrap_content"
                 android:hint="Organizer"
                 android:padding="@dimen/_12sdp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"/>
 
             <!-- EventType Edit Text -->
             <EditText
@@ -96,7 +117,10 @@
                 android:layout_height="wrap_content"
                 android:hint="Event Type"
                 android:padding="@dimen/_12sdp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"/>
 
             <!-- Capacity Edit Text -->
             <EditText
@@ -105,7 +129,10 @@
                 android:layout_height="wrap_content"
                 android:hint="Capacity"
                 android:padding="@dimen/_12sdp"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"/>
 
             <!-- Description Edit Text -->
             <EditText
@@ -115,6 +142,9 @@
                 android:hint="Description"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/_12sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"
                 />
             <EditText
                 android:id="@+id/etTemp"
@@ -127,6 +157,9 @@
                 android:clickable="false"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/_12sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"
                 />
             <EditText
                 android:id="@+id/etHum"
@@ -139,6 +172,9 @@
                 android:clickable="false"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/_12sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"
                 />
             <EditText
                 android:id="@+id/etWarning"
@@ -151,32 +187,71 @@
                 android:clickable="false"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/_12sdp"
+                android:theme="@style/ThemeOverlay.SearchView"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="?attr/colorPrimary"
                 />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linearFlyer"
+                android:layout_marginEnd="@dimen/_5sdp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload a flyer"
+                    style="@style/TEXTVIEWS"
+                    />
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="Upload event flyer image"
-                android:src="@drawable/ic_image" />
+                android:src="@drawable/ic_image"
+                android:layout_marginBottom="@dimen/_5sdp"/>
+            </LinearLayout>
 
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linearIcon"
+                android:layout_marginStart="@dimen/_5sdp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload an Icon"
+                    style="@style/TEXTVIEWS"
+                    />
             <ImageView
                 android:id="@+id/imageViewIcon"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="Upload Organizer icon"
-                app:srcCompat="@drawable/ic_icon" />
+                app:srcCompat="@drawable/ic_icon"
+                android:layout_marginBottom="@dimen/_5sdp"/>
+            </LinearLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnUploadImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Upload Image"
-                android:backgroundTint="@color/progressbar_blue1"/>
+                android:text="Upload Images"
+                android:textColor="@color/white"
+                android:background="@drawable/buttonshape"
+                android:layout_marginBottom="@dimen/_5sdp"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -203,6 +278,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText"
-        android:backgroundTint="@color/progressbar_blue1"/>
+        android:textColor="@color/white"
+        android:background="@drawable/buttonshape"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
