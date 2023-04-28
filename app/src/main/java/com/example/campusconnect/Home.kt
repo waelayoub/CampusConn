@@ -76,7 +76,7 @@ class Home : Fragment() {
                                 }
 
                                 adapter = EventModelAdapter(con,searchList,false)
-                                //adapter.isShimmer=false
+                                adapter.isShimmer=false
                                 eventRecyclerView.adapter=adapter
 
                             }else{

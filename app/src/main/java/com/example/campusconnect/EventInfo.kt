@@ -43,7 +43,7 @@ class EventInfo(private val eventName: String,
         binding= FragmentEventInfoBinding.inflate(inflater, container, false)
         dbref.child(eventId).get().addOnSuccessListener {
             if(it.child(auth.currentUser!!.uid).exists()){
-                binding.registerButton.text="Registered"
+                binding.registerButton.text="Subscribed"
                 binding.registerButton.isEnabled=false
 
             }
@@ -83,7 +83,7 @@ class EventInfo(private val eventName: String,
             dbRef.child(userId).setValue(dateString)
                 .addOnSuccessListener {
                     println("Success")
-                    binding.registerButton.text="Registered"
+                    binding.registerButton.text="Subscribed"
                     binding.registerButton.isEnabled=false
 
                 }
