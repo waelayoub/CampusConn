@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     private val homeFragment = Home()
     private val myEventsFragment=MyEvents()
-    private val settingsFragment=Settings()
+    private var settingsFragment=Settings()
 
     private lateinit var mAddFab: FloatingActionButton
     private lateinit var mAddAlarmFab: FloatingActionButton
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (theme_object.themebool){
-
+            settingsFragment= Settings()
             replaceFragment(settingsFragment)
             theme_object.themebool=false
         }else{

@@ -100,13 +100,6 @@ class Settings : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        activityMain.findViewById<FloatingActionButton>(R.id.add_fab).visibility=View.INVISIBLE
-
-    }
-
-
 
 
 

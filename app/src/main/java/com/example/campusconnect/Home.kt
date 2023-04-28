@@ -10,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentHomeBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -257,6 +259,10 @@ class Home : Fragment() {
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
         con=requireContext()
+        val activityMain = con as AppCompatActivity
+        activityMain.findViewById<FloatingActionButton>(R.id.add_fab).visibility=View.INVISIBLE
+        activityMain.findViewById<FloatingActionButton>(R.id.add_alarm_fab).visibility=View.INVISIBLE
+        activityMain.findViewById<FloatingActionButton>(R.id.add_person_fab).visibility=View.INVISIBLE
         getEventData()
         searchListener()
         return binding.root
