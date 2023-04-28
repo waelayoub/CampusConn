@@ -17,6 +17,7 @@ class FetchingActivity : AppCompatActivity() {
     private lateinit var tvLoadingData: TextView
     private lateinit var eventList : ArrayList<EventModel>
     private lateinit var dbRef : DatabaseReference
+    private lateinit var userName:String
 
     private fun getThis() : Context?{
         return this.applicationContext
@@ -32,6 +33,7 @@ class FetchingActivity : AppCompatActivity() {
 
         eventRecyclerView = findViewById(R.id.rvEvent)
         tvLoadingData = findViewById(R.id.tvLoadingData)
+        userName=intent.getStringExtra("name").toString()
 
         eventRecyclerView.layoutManager = LinearLayoutManager(this)
         eventRecyclerView.setHasFixedSize(true)
@@ -45,6 +47,8 @@ class FetchingActivity : AppCompatActivity() {
 
         val parentActivityIntent = Intent(this, MainActivity::class.java)
         parentActivityIntent.putExtra("user","admin")
+        println("the name received: "+intent.getStringExtra("name"))
+        parentActivityIntent.putExtra("name", intent.getStringExtra("name"))
         finish()
         startActivity(parentActivityIntent)
     }
@@ -81,7 +85,7 @@ class FetchingActivity : AppCompatActivity() {
                     mAdapter.setOnItemClickListener(object : EventAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
                             val intent = Intent(getThis(), EventDetailsActivity::class.java)
-
+                            intent.putExtra("name", userName)
                             intent.putExtra("eventId",eventList[position].eventId)
                             intent.putExtra("eventName",eventList[position].eventName)
                             intent.putExtra("eventDate",eventList[position].eventDate)

@@ -269,6 +269,7 @@ class EventDetailsActivity : AppCompatActivity() {
         super.onBackPressed()
 
         val parentActivityIntent = Intent(this, FetchingActivity::class.java)
+        parentActivityIntent.putExtra("name", intent.getStringExtra("name"))
         startActivity(parentActivityIntent)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

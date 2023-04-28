@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.microsoft.graph.authentication.IAuthenticationProvider
 import com.microsoft.graph.requests.GraphServiceClient
 import com.microsoft.identity.client.IAccount
@@ -55,6 +54,8 @@ class Splash_Screen : AppCompatActivity() {
         val isDarkModeEnabled = sharedPreferences.getBoolean("is_dark_mode_enabled", false)
         val mode = if (isDarkModeEnabled) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         AppCompatDelegate.setDefaultNightMode(mode)
+
+
 
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -222,6 +223,10 @@ class Splash_Screen : AppCompatActivity() {
                     intent.putExtra("user","student")
                 }
 
+
+                intent.putExtra("name",result.displayName)
+
+
                 startActivity(intent)
                 finish()
             }
@@ -239,20 +244,6 @@ class Splash_Screen : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
 
-
-                        val profileUpdates = UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .build()
-                        val user = auth.currentUser
-
-                        user?.updateProfile(profileUpdates)
-                            ?.addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d(TAG, "User profile updated.")
-                                }
-                            }
-
-
                     println("Creation of user successful (Firebase)")
                     return@addOnCompleteListener
                 } else {
@@ -262,18 +253,6 @@ class Splash_Screen : AppCompatActivity() {
                                 println("Logging of user successful (Firebase)")
 
                                 println("The name that should appear is : " + name)
-
-                                val profileUpdates = UserProfileChangeRequest.Builder()
-                                    .setDisplayName(name)
-                                    .build()
-                                val user = auth.currentUser
-
-                                user?.updateProfile(profileUpdates)
-                                    ?.addOnCompleteListener { task ->
-                                        if (task.isSuccessful) {
-                                            Log.d(TAG, "User profile updated.")
-                                        }
-                                    }
 
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success")
@@ -292,45 +271,6 @@ class Splash_Screen : AppCompatActivity() {
                             }
                         }
                     println("Entered now the signing in")
-                }
-            }
-
-//        println("result.userPrincipalName : "+result.userPrincipalName!!)
-//        println("result.id : "+result.id.toString())
-
-        auth.signInWithEmailAndPassword(mail, pass)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    println("Logging of user successful (Firebase)")
-
-                    println("The name that should appear is : " + name)
-
-                        val profileUpdates = UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .build()
-                        val user = auth.currentUser
-
-                        user?.updateProfile(profileUpdates)
-                            ?.addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d(TAG, "User profile updated.")
-                                }
-                            }
-
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
-                } else {
-                    println("Entered the worst case")
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    GlobalScope.launch(Dispatchers.IO) {
-                        MS_Account_Object.mSingleAccountApp?.signOut()
-                    }
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@addOnCompleteListener
                 }
             }
 
