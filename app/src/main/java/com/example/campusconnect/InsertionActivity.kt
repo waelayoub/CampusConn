@@ -280,6 +280,9 @@ class InsertionActivity : AppCompatActivity() {
         dbRef.child(eventID).setValue(event)
             .addOnCompleteListener {
                 Toast.makeText(this, "Event inserted successfully", Toast.LENGTH_LONG).show()
+                val notification=
+                    FcmNotificationsSender("/topics/all", "New Event", "Come check the new event recently added", applicationContext, this)
+                notification.SendNotifications()
                 etEventID.text.clear()
                 etName.text.clear()
                 etDate.text.clear()

@@ -1,6 +1,5 @@
 package com.example.campusconnect
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
@@ -9,9 +8,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusconnect.databinding.FragmentHomeBinding
@@ -35,6 +34,7 @@ class Home : Fragment() {
     private lateinit var con: Context
 
     private val auth: FirebaseAuth = Firebase.auth
+    private lateinit var act:FragmentActivity
 
 
     private var eventlist= arrayListOf<EventModel>()
@@ -87,7 +87,7 @@ class Home : Fragment() {
 
                             }
 
-                        if (event.eventWarning==1 && !FireAlarmWarning.triggered ){
+                        if (event.eventWarning!=0 && !FireAlarmWarning.triggered ){
                             val registeredToEvent = dbrefReg.child(event.eventId!!).child(auth.currentUser!!.uid)
                             registeredToEvent.get().addOnSuccessListener {
                                 task ->
@@ -186,6 +186,9 @@ class Home : Fragment() {
                             registeredToEvent.get().addOnSuccessListener {
                                 task ->
                                 if (task.exists()){
+                                    val notification=
+                                        FcmNotificationsSender("/topics/"+event.eventId, "Fire Detected", "Fire alarm went on", con, act)
+                                    notification.SendNotifications()
                                     val builder = AlertDialog.Builder(con)
                                     builder.setMessage("Warning: In one event you registered, the fire alarm has been turned on")
                                         .setCancelable(false)
@@ -259,6 +262,7 @@ class Home : Fragment() {
         eventRecyclerView.setHasFixedSize(true)
         eventRecyclerView.adapter=adapter
         con=requireContext()
+        act= requireActivity()
         val activityMain = con as AppCompatActivity
         activityMain.findViewById<FloatingActionButton>(R.id.add_fab).visibility=View.INVISIBLE
         activityMain.findViewById<FloatingActionButton>(R.id.add_alarm_fab).visibility=View.INVISIBLE

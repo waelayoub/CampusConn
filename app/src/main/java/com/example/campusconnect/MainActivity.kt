@@ -1,17 +1,14 @@
 package com.example.campusconnect
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.campusconnect.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +50,18 @@ class MainActivity : AppCompatActivity() {
         // FAB button
         mAddAlarmFab = binding.addAlarmFab
         mAddPersonFab = binding.addPersonFab
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
+            .addOnCompleteListener { task ->
+                var msg = "Done"
+                if (!task.isSuccessful) {
+                    msg = "Failed"
+                }
+
+                println(msg)
+            }.addOnFailureListener{
+                println("Action Failed")
+            }
 
         // Also register the action name text, of all the FABs.
 
