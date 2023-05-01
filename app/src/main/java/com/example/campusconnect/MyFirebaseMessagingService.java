@@ -20,7 +20,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         final String CHANNEL_ID = "myFirebaseChannel";
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Heads Up Notification", NotificationManager.IMPORTANCE_HIGH);
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "myFirebaseChannel").setSmallIcon(R.drawable.baseline_notifications_active_24).setContentTitle(title).setContentText(msg).setAutoCancel(true);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "myFirebaseChannel").setSmallIcon(R.drawable.campusconnectlogo).setContentTitle(title).setContentText(msg).setAutoCancel(true);
         NotificationManagerCompat manager = NotificationManagerCompat.from(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling //
