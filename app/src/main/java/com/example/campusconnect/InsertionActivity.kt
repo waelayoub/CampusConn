@@ -52,6 +52,7 @@ class InsertionActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
 
     private lateinit var dbRef: DatabaseReference
+    private lateinit var dbRefAct: DatabaseReference
     private lateinit var strgRef : StorageReference
     private  var imageUri: Uri? = null
     private  var imageUriIcon: Uri? = null
@@ -129,6 +130,7 @@ class InsertionActivity : AppCompatActivity() {
         btnUpload=findViewById(R.id.btnUploadImage)
 
         dbRef = FirebaseDatabase.getInstance().getReference("Events")
+        dbRefAct = FirebaseDatabase.getInstance().getReference("Active")
         strgRef = FirebaseStorage.getInstance().getReference()
 
 
@@ -300,6 +302,8 @@ class InsertionActivity : AppCompatActivity() {
             }.addOnFailureListener { err ->
                 Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
             }
+
+        dbRefAct.child(eventID).setValue("").addOnCompleteListener{}
 
         btnSaveData.isEnabled = false
         fun isFieldsValid(): Boolean {
