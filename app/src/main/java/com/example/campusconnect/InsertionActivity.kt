@@ -199,7 +199,7 @@ class InsertionActivity : AppCompatActivity() {
                 }
                 progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
-                println("the image url is :"+imageUrl)
+//                println("the image url is :"+imageUrl)
                 btnSaveData.isEnabled = true
 
 
@@ -296,14 +296,14 @@ class InsertionActivity : AppCompatActivity() {
                 etDescription.text.clear()
                 imageViewIcon.setImageResource(R.drawable.ic_icon)
                 imageView.setImageResource(R.drawable.ic_image)
-
+                dbRefAct.child(eventID).setValue("").addOnCompleteListener{}
 
 
             }.addOnFailureListener { err ->
                 Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
             }
 
-        dbRefAct.child(eventID).setValue("").addOnCompleteListener{}
+
 
         btnSaveData.isEnabled = false
         fun isFieldsValid(): Boolean {

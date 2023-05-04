@@ -84,7 +84,9 @@ class FetchingActivity : AppCompatActivity() {
 
                     mAdapter.setOnItemClickListener(object : EventAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
+                            val uName:String=intent.getStringExtra("name")!!
                             val intent = Intent(getThis(), EventDetailsActivity::class.java)
+                            intent.putExtra("userName",uName )
                             intent.putExtra("name", userName)
                             intent.putExtra("eventId",eventList[position].eventId)
                             intent.putExtra("eventName",eventList[position].eventName)

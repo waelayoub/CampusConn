@@ -68,6 +68,7 @@ class Settings : Fragment() {
         println("I am in Settings the email is: "+ auth.currentUser!!.email )
 
         binding.SignOutButton.setOnClickListener {
+            FireAlarmWarning.triggered=false
             val auth = FirebaseAuth.getInstance()
             auth.signOut()
             GlobalScope.launch(Dispatchers.IO) {
