@@ -1,13 +1,18 @@
 package com.example.campusconnect
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -179,15 +184,45 @@ class MyEvents : Fragment() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
-
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
-                        if (event.eventWarning!=0 && !FireAlarmWarning.triggered ){
+                        if (eventlist[i].eventWarning!=event.eventWarning && event.eventWarning!=0){
                             val registeredToEvent = dbrefReg.child(event.eventId!!).child(auth.currentUser!!.uid)
+
                             registeredToEvent.get().addOnSuccessListener {
                                     task ->
                                 if (task.exists()){
-                                    FireAlarmWarning.triggered=true
+
+                                    val notificationId = 1
+                                    val builder = NotificationCompat.Builder(con, "myFirebaseChannel")
+                                        .setSmallIcon(R.drawable.baseline_notifications_active_24)
+                                        .setContentTitle("Fire Detected")
+                                        .setContentText("Fire alarm went on")
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    with(NotificationManagerCompat.from(con)) {
+                                        if (ActivityCompat.checkSelfPermission(
+                                                con,
+                                                Manifest.permission.POST_NOTIFICATIONS
+                                            ) != PackageManager.PERMISSION_GRANTED
+                                        ) {
+                                            println("no permission")
+                                            // TODO: Consider calling
+                                            //    ActivityCompat#requestPermissions
+                                            // here to request the missing permissions, and then overriding
+                                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                            //                                          int[] grantResults)
+                                            // to handle the case where the user grants the permission. See the documentation
+                                            // for ActivityCompat#requestPermissions for more details.
+
+                                        }
+                                        notify(notificationId, builder.build())
+                                    }
+                                    FireAlarmWarning.triggered=false
+
+
+//                                    val notification=
+//                                        FcmNotificationsSender("/topics/"+event.eventId, "Fire Detected", "Fire alarm went on", con, act)
+//                                    notification.SendNotifications()
                                     try {
                                         val builder = AlertDialog.Builder(con)
                                         builder.setMessage("Warning: In one event you registered, the fire alarm has been turned on")
@@ -201,20 +236,21 @@ class MyEvents : Fragment() {
                                     catch (e:Exception){
                                         println("Can't Display the dialog")
                                     }
+
                                 }
                             }
-
-
-
                         }
                         eventlist[i] = event
+                        //adapter = EventModelAdapter(con,eventlist,false)
+                        adapter.isShimmer=false
+                        //eventRecyclerView.adapter=adapter
 
                         break
                     }
                 }
-                adapter= EventModelAdapter(con,eventlist,true)
-                adapter.isShimmer=false
-                eventRecyclerView.adapter=adapter
+//                adapter= EventModelAdapter(con,eventlist,true)
+//                adapter.isShimmer=false
+//                eventRecyclerView.adapter=adapter
 
             }
 
