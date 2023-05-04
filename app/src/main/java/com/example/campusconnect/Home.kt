@@ -46,6 +46,9 @@ class Home : Fragment() {
     private lateinit var searchView:androidx.appcompat.widget.SearchView
     private var searchList= arrayListOf<EventModel>()
 
+    private lateinit var activeListener: ChildEventListener
+    private lateinit var eventListener: ChildEventListener
+
 
 
     private fun getEventData(){
@@ -54,9 +57,7 @@ class Home : Fragment() {
         dbrefEvent= FirebaseDatabase.getInstance().getReference("Events")
         dbrefReg= FirebaseDatabase.getInstance().getReference("registrations")
 
-
-
-        dbref.addChildEventListener(object : ChildEventListener {
+        activeListener=object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 println("In active ref in child added listener")
 
@@ -145,7 +146,6 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event) {
                         eventlist.removeAt(i)
-                        adapter.isShimmer=false
 
 
                         searchList.clear()
@@ -162,7 +162,9 @@ class Home : Fragment() {
 
                         }else{
                             searchList.clear()
-                            adapter.notifyDataSetChanged()
+                            adapter = EventModelAdapter(con,eventlist,false)
+                            adapter.isShimmer=false
+                            eventRecyclerView.adapter=adapter
 
                         }
 
@@ -180,9 +182,10 @@ class Home : Fragment() {
 
             }
 
-        })
+        }
 
-        dbrefEvent.addChildEventListener(object : ChildEventListener {
+
+        eventListener=object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             }
 
@@ -274,10 +277,9 @@ class Home : Fragment() {
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
                         eventlist.removeAt(i)
-                        //adapter = EventModelAdapter(con,eventlist,false)
+                        adapter = EventModelAdapter(con,eventlist,false)
                         adapter.isShimmer=false
-                        adapter.notifyDataSetChanged()
-                        //eventRecyclerView.adapter=adapter
+                        eventRecyclerView.adapter=adapter
                         break
                     }
                 }
@@ -286,7 +288,12 @@ class Home : Fragment() {
             }
             override fun onCancelled(error: DatabaseError) {
             }
-        })
+
+        }
+
+        dbref.addChildEventListener(activeListener)
+
+        dbrefEvent.addChildEventListener(eventListener)
     }
 
 
@@ -342,4 +349,14 @@ class Home : Fragment() {
             }
             })
         }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("Destroy in home")
+
+            dbref.removeEventListener(activeListener)
+
+            dbrefEvent.removeEventListener(eventListener)
+
+    }
 }

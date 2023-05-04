@@ -33,6 +33,10 @@ class MyEvents : Fragment() {
 
     private lateinit var con:Context
 
+    private lateinit var activeListener: ChildEventListener
+    private lateinit var eventListener: ChildEventListener
+    private lateinit var registrationListener: ChildEventListener
+
 
 
     override fun onCreateView(
@@ -69,8 +73,7 @@ class MyEvents : Fragment() {
     private fun getEventData1() {
         val uid: String = auth.currentUser!!.uid
 
-
-        dbrefReg.addChildEventListener(object : ChildEventListener {
+        registrationListener = object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 dbrefActive.child(snapshot.key!!).get().addOnSuccessListener { task ->
                     if (task.exists()) {
@@ -134,9 +137,10 @@ class MyEvents : Fragment() {
             override fun onCancelled(error: DatabaseError) {
                 // Handle any errors that occur
             }
-        })
 
-        dbrefActive.addChildEventListener(object : ChildEventListener {
+        }
+
+        activeListener=object :ChildEventListener{
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 println("added in active")
@@ -164,21 +168,45 @@ class MyEvents : Fragment() {
 
             override fun onCancelled(error: DatabaseError) {
             }
-        })
 
+        }
 
-        dbrefEvent.addChildEventListener(object :ChildEventListener{
+        eventListener=object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
 
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                println("ANAAAA belll changeddd")
                 val event = snapshot.getValue(EventModel::class.java)
                 event!!.eventId = snapshot.key
 
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
+                        if (event.eventWarning!=0 && !FireAlarmWarning.triggered ){
+                            val registeredToEvent = dbrefReg.child(event.eventId!!).child(auth.currentUser!!.uid)
+                            registeredToEvent.get().addOnSuccessListener {
+                                    task ->
+                                if (task.exists()){
+                                    FireAlarmWarning.triggered=true
+                                    try {
+                                        val builder = AlertDialog.Builder(con)
+                                        builder.setMessage("Warning: In one event you registered, the fire alarm has been turned on")
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK") { dialog, id ->
+                                                // do something when the OK button is clicked
+                                            }
+                                        val alert = builder.create()
+                                        alert.show()
+                                    }
+                                    catch (e:Exception){
+                                        println("Can't Display the dialog")
+                                    }
+                                }
+                            }
+
+
+
+                        }
                         eventlist[i] = event
 
                         break
@@ -201,9 +229,26 @@ class MyEvents : Fragment() {
             override fun onCancelled(error: DatabaseError) {
 
             }
+        }
 
-        })
 
+        dbrefReg.addChildEventListener(registrationListener)
+
+        dbrefActive.addChildEventListener(activeListener)
+
+        dbrefEvent.addChildEventListener(eventListener)
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("Destroy in my events")
+            dbrefActive.removeEventListener(activeListener);
+
+            dbrefEvent.removeEventListener(eventListener)
+
+            dbrefReg.removeEventListener(registrationListener)
 
     }
 

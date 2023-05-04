@@ -103,6 +103,9 @@ class Splash_Screen : AppCompatActivity() {
             override fun onSuccess(authenticationResult: IAuthenticationResult?) {
                 Log.d(TAG, "Successfully authenticated interactively")
                 if (authenticationResult != null) {
+                    binding.EnterButton.isEnabled=false
+                    binding.overlayView.setVisibility(View.VISIBLE)
+                    binding.progressBar.setVisibility(View.VISIBLE)
                     callGraphAPI(authenticationResult)
                 }
             }
