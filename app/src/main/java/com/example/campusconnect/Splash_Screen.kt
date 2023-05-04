@@ -124,6 +124,9 @@ class Splash_Screen : AppCompatActivity() {
             override fun onSuccess(authenticationResult: IAuthenticationResult?) {
                 Log.d(TAG, "Successfully authenticated silently")
                 /* Successfully got a token, use it to call a protected resource - MSGraph */
+                binding.EnterButton.isEnabled=false
+                binding.overlayView.setVisibility(View.VISIBLE)
+                binding.progressBar.setVisibility(View.VISIBLE)
                 callGraphAPI(authenticationResult!!)
             }
 
@@ -181,9 +184,7 @@ class Splash_Screen : AppCompatActivity() {
 
 
 
-        binding.EnterButton.isEnabled=false
-        binding.overlayView.setVisibility(View.VISIBLE)
-        binding.progressBar.setVisibility(View.VISIBLE)
+
 
 
 

@@ -179,29 +179,15 @@ class MyEvents : Fragment() {
 
                 for (i in eventlist.indices) {
                     if (eventlist[i].eventId == event.eventId) {
-                        if (eventlist[i].eventWarning!=event.eventWarning && event.eventWarning!=0){
-                            val registeredToEvent = dbrefReg.child(event.eventId!!).child(auth.currentUser!!.uid)
-
-                            registeredToEvent.get().addOnSuccessListener {
-                                    task ->
-                                if (task.exists()){
-                                    val builder = AlertDialog.Builder(con)
-                                    builder.setMessage("Warning: In one event you registered, the fire alarm has been turned on")
-                                        .setCancelable(false)
-                                        .setPositiveButton("OK") { dialog, id ->
-                                            // do something when the OK button is clicked
-                                        }
-                                    val alert = builder.create()
-                                    alert.show()
-                                }
-                            }
-                        }
                         eventlist[i] = event
-                        adapter.isShimmer=false
+
                         break
                     }
                 }
-                adapter.notifyDataSetChanged()
+                adapter= EventModelAdapter(con,eventlist,true)
+                adapter.isShimmer=false
+                eventRecyclerView.adapter=adapter
+
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {

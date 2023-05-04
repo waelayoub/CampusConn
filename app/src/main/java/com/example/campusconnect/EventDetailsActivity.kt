@@ -64,12 +64,17 @@ class EventDetailsActivity : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton("Yes") { _, _ ->
                 val dbRef = FirebaseDatabase.getInstance().getReference("Events").child(id)
+                val dbRefAct = FirebaseDatabase.getInstance().getReference("Active").child(id)
+
                 val mTask = dbRef.removeValue()
+                dbRefAct.removeValue()
                 mTask.addOnSuccessListener {
                     Toast.makeText(this, "Event Data Deleted", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, FetchingActivity::class.java)
+                    println("The name here is : "+intent.getStringExtra("userName"))
+                    val intents = Intent(this, FetchingActivity::class.java)
+                    intents.putExtra("name", intent.getStringExtra("userName"))
                     finish()
-                    startActivity(intent)
+                    startActivity(intents)
                 }.addOnFailureListener { error ->
                     Toast.makeText(this, "Deleting error ${error.message}", Toast.LENGTH_LONG).show()
                 }
